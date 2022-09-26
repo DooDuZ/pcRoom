@@ -3,10 +3,10 @@ package pcRoom;
 import java.util.Scanner;
 
 public class View {
-	View view = new View();
+	
 	
 	public static void main(String[] args) {
-		
+		View view = new View();
 		Scanner scanner = new Scanner(System.in);
 		
 		while(true) {
@@ -24,13 +24,16 @@ public class View {
 				// 매출확인_김원종
 			}else if(ch==5){
 				// 시간충전_신지웅
+				view.charge();
 			}			
 		}
 		
 	}
 	
 	//시간충전 메서드
-	
+	void charge() {
+		
+	}
 	
 	
 }
