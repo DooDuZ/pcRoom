@@ -3,6 +3,8 @@ package pcRoom;
 import java.util.Scanner;
 
 public class View {
+	View view = new View();
+	
 	public static void main(String[] args) {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -26,4 +28,9 @@ public class View {
 		}
 		
 	}
+	
+	//시간충전 메서드
+	
+	
+	
 }
