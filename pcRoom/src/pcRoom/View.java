@@ -1,5 +1,6 @@
 package pcRoom;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class View {	
@@ -26,14 +27,27 @@ public class View {
 				// 매출확인_김원종
 			}else if(ch==5){
 				// 시간충전_신지웅
-				view.charge();
+				view.chargeView();
+				System.out.println("요금제를 선택해 주세요.");
+				int sel_numb = scanner.nextInt();
+				view.charge(sel_numb);
 			}
-		}
-		
+		}		
 	}
 	
 	//시간충전 메서드
-	void charge() {
-		con.priceViewer();
+	void chargeView() {
+		ArrayList<priceDTO> list = new ArrayList<priceDTO>();
+		list = con.priceViewer(); 
+		for(priceDTO tmp : list) {
+			System.out.println(tmp.getPriceNo()+"."+tmp.getPrice()+"원 \t"+tmp.getHours()+"시간");
+		}
 	}
+	void charge(int sel_numb) {
+		if(sel_numb==1) {
+			//로그인 구현 후 진행
+		}
+	}
+	
+	
 }

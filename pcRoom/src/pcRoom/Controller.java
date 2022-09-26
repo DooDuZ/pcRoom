@@ -8,5 +8,10 @@ public class Controller {
 	ArrayList<priceDTO> priceViewer(){
 		return pcroomDAO.getInstance().priceViewer();
 	}
+	void charge(int sel_numb) {
+		if(sel_numb==1) {
+			//로그인 구현 후 진행
+		}
+	}
 	
 }

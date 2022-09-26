@@ -22,7 +22,7 @@ public class pcroomDAO {
 					"1234");
 		} catch (Exception e) {
 			System.out.println("DB연동 실패"+e);
-		}	
+		}
 	}
 	
 	// 메서드 작성
@@ -42,12 +42,18 @@ public class pcroomDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				priceDTO dto = new priceDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-				list.add(dto);
+				list.add(dto);				
 			}
 			return list;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return list;
-	}	
+	}
+	void charge(int sel_numb) {
+		if(sel_numb==1) {
+			//로그인 구현 후 진행
+		}
+	}
+
 }
