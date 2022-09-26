@@ -27,7 +27,7 @@ public class pcroomDAO {
 	}
 	
 	// 메서드 작성
-	public pcroomDAO getInstance() {
+	public static pcroomDAO getInstance() {
 		return pcdao;		
 	}
 	
