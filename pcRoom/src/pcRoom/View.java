@@ -36,6 +36,4 @@ public class View {
 	void charge() {
 		con.priceViewer();
 	}
-	
-	
 }
