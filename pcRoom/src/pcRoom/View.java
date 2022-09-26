@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 public class View {	
 	
+	Controller con = new Controller();
+	
 	public static void main(String[] args) {
 		View view = new View();
+		
 		Scanner scanner = new Scanner(System.in);
 		
 		while(true) {
@@ -31,7 +34,7 @@ public class View {
 	
 	//시간충전 메서드
 	void charge() {
-		
+		con.priceViewer();
 	}
 	
 	
