@@ -2,8 +2,7 @@ package pcRoom;
 
 import java.util.Scanner;
 
-public class View {
-	
+public class View {	
 	
 	public static void main(String[] args) {
 		View view = new View();
@@ -25,7 +24,7 @@ public class View {
 			}else if(ch==5){
 				// 시간충전_신지웅
 				view.charge();
-			}			
+			}
 		}
 		
 	}
