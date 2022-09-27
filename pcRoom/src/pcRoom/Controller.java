@@ -16,7 +16,6 @@ public class Controller {
 	//일매출
 	dayrecordDTO daysales(String date) {
 		return pcroomDAO.getInstance().daysales(date);	
-		
 	}
 	
 	dayrecordDTO M_daysales(String date) {

@@ -50,7 +50,7 @@ public class View {
 	//시간충전 메서드
 	void chargeView() {
 		ArrayList<priceDTO> list = new ArrayList<priceDTO>();
-		list = con.priceViewer(); 
+		list = con.priceViewer();
 		for(priceDTO tmp : list) {
 			System.out.println(tmp.getPriceNo()+"."+tmp.getPrice()+"원 \t"+tmp.getHours()+"시간");
 		}

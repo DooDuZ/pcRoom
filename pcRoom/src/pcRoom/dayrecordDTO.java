@@ -7,6 +7,11 @@ public class dayrecordDTO {
 	private int dayIncome;
 
 	public dayrecordDTO() {}
+	
+	public dayrecordDTO( int dayIncome) {
+		this.dayIncome = dayIncome;		
+	}
+	
 	public dayrecordDTO(int dNo, String dDate, int dayIncome) {
 		this.dNo = dNo;
 		this.dDate = dDate;
