@@ -8,6 +8,22 @@ public class dayrecordDTO {
 	   
 	public dayrecordDTO() {}
 
+	
+
+	public dayrecordDTO(int dayIncome) {
+		super();
+		this.dayIncome = dayIncome;
+	}
+
+
+
+	public dayrecordDTO(String dDate, int dayIncome) {
+		super();
+		this.dDate = dDate;
+		this.dayIncome = dayIncome;
+	}
+
+
 
 	public dayrecordDTO(int dNo, String dDate, int dayIncome) {
 		this.dNo = dNo;
