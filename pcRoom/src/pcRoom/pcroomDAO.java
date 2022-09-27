@@ -60,6 +60,7 @@ public class pcroomDAO {
 	dayrecordDTO daysales(String date) {
 		dayrecordDTO dto = new dayrecordDTO();
 		String sql="select*from dayrecord where dDate = ?";
+		System.out.println("여기-1");
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, date);
@@ -73,10 +74,7 @@ public class pcroomDAO {
 	//월매출확인 
 	dayrecordDTO M_daysales(String date) {
 		dayrecordDTO dto = new dayrecordDTO();
-		 String sql = "select sum(dayincome) from dayrecord where substring(dDate, 1, 6)=?";
-		// String sql = "select dDate, sum(dayIncome) from dayRecord where dDate like ?";
-		// String sql="select dDate,sum(dayIncome) from dayrecord group  by ?;";
-		
+		String sql = "select sum(dayincome) from dayrecord where substring(dDate,1,6) = ?";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, date);

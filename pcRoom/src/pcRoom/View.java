@@ -68,9 +68,9 @@ public class View {
 	}
 	//월별매출
 	void M_dayrecord(String date) {
-		dayrecordDTO dto = con.daysales(date);
+		dayrecordDTO dto = con.M_daysales(date);
 		System.out.println("월별매출\n");
-		System.out.println(dto.getdDate()+"\n"+dto.getDayIncome());
+		System.out.println(date+" : "+dto.getDayIncome());
 	}
 	
 }//class E
