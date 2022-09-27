@@ -56,4 +56,40 @@ public class pcroomDAO {
 		}
 	}
 
-}
+	//매출확인 
+	dayrecordDTO daysales(String date) {
+		dayrecordDTO dto = new dayrecordDTO();
+		String sql="select*from dayrecord where dDate = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, date);
+			rs = ps.executeQuery();
+			rs.next();
+			dto = new dayrecordDTO(rs.getInt(1),rs.getString(2),rs.getInt(3));
+			return dto;
+		} catch (Exception e) {System.out.println("DB오류"+e);}
+		return dto;
+	}
+	//월매출확인 
+	dayrecordDTO M_daysales(String date) {
+		dayrecordDTO dto = new dayrecordDTO();
+		 String sql = "select sum(dayIncome) from dayRecord where substring(dDate, 1, 6) = ?";
+		// String sql = "select dDate, sum(dayIncome) from dayRecord where dDate like ?";
+		// String sql="select dDate,sum(dayIncome) from dayrecord group  by ?;";
+		
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, sql);
+			rs = ps.executeQuery();
+			rs.next();
+			dto = new dayrecordDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
+			return dto;
+		} catch (Exception e) {System.out.println("DB오류"+e);}
+		return dto;
+	}
+	
+	
+	
+	
+	
+}//class E

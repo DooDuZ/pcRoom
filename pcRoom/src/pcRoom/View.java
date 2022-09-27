@@ -25,6 +25,18 @@ public class View {
 				// 로그인/로그아웃_안태섭
 			}else if(ch==4){
 				// 매출확인_김원종
+				System.out.println("1.일일매출확인 2.월매출확인 ");int sale=scanner.nextInt();
+				if(sale==1) {
+					System.out.print("확인할 날짜를 입력해주세요 :");String date=scanner.next();
+						view.dayrecord(date);
+				}
+				else if(sale==2) {
+					System.out.println("확인할 월을 입력해주세요");String date=scanner.next();
+						view.M_dayrecord(date);
+				}
+				else {System.err.println("입력할수 없는 번호입니다");}
+				
+				
 			}else if(ch==5){
 				// 시간충전_신지웅
 				view.chargeView();
@@ -48,6 +60,17 @@ public class View {
 			//로그인 구현 후 진행
 		}
 	}
+	//일별매출
+	void dayrecord(String date) {
+		dayrecordDTO dto = con.daysales(date); 
+		System.out.println("날짜\t매출");
+		System.out.println(dto.getdDate()+"\t"+dto.getDayIncome());
+	}
+	//월별매출
+	void M_dayrecord(String date) {
+		dayrecordDTO dto = con.daysales(date);
+		System.out.println("월별매출\n");
+		System.out.println(dto.getdDate()+"\n"+dto.getDayIncome());
+	}
 	
-	
-}
+}//class E

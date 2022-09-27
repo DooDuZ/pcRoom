@@ -13,5 +13,17 @@ public class Controller {
 			//로그인 구현 후 진행
 		}
 	}
+	//일매출
+	dayrecordDTO daysales(String date) {
+		return pcroomDAO.getInstance().daysales(date);	
+		
+	}
 	
-}
+	dayrecordDTO M_daysales(String date) {
+		return pcroomDAO.getInstance().M_daysales(date);
+	}
+	
+	
+	
+	
+}//class E
