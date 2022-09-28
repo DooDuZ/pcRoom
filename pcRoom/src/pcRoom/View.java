@@ -59,9 +59,9 @@ public class View {
 	void login(String memID , String memPW) {		
 		boolean result = con.login(memID, memPW);
 		if(result == true) {
-			System.out.println("로그인에 성공했슴다");
+			System.out.println("로그인에 성공했습니다 즐거운 시간 되세요.");
 		}else {
-			System.out.println("로그인에 실패했씀다.");
+			System.out.println("로그인에 실패했습니다 안녕히 가세요");
 		}
 	}
 	
