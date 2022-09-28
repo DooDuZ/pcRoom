@@ -22,7 +22,4 @@ public class Controller {
 		return pcroomDAO.getInstance().M_daysales(date);
 	}
 	
-	
-	
-	
 }//class E

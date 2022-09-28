@@ -60,7 +60,6 @@ public class pcroomDAO {
 	dayrecordDTO daysales(String date) {
 		dayrecordDTO dto = new dayrecordDTO();
 		String sql="select*from dayrecord where dDate = ?";
-		System.out.println("여기-1");
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, date);
