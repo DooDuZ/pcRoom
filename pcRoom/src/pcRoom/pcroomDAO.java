@@ -17,7 +17,7 @@ public class pcroomDAO {
 	private pcroomDAO() {
 		try {
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/pcroom",
+					"jdbc:mysql://localhost:3306/pc_room",
 					"root", 
 					"1234");
 		} catch (Exception e) {
@@ -30,8 +30,24 @@ public class pcroomDAO {
 		return pcdao;
 	}
 	
-	
 	private static pcroomDAO pcdao = new pcroomDAO();  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
+	
+	// 로그인 [안태섭] 미완
+	public boolean login (membersDTO dto) {
+		String sql ="SELECT * FROM members WHERE memID = ? AND memPW = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString( 1 , dto.getMemID() ); // 첫 번째 ? 에 memID 대입
+			ps.setString( 2 , dto.getMemPW() ); // 두 번째 ? 에 memPW 대입
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return true; // 로그인 성공
+			} else {
+				return false;	// 데이터베이스에 회원 정보 X
+			}
+		} catch (Exception e) {System.out.println("데이터베이스 오류");}
+		return false;
+	} // LOGIN END
 	
 	// 요금제 출력 메서드
 	ArrayList<priceDTO> priceViewer(){

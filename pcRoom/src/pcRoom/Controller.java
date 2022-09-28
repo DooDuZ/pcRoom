@@ -1,6 +1,7 @@
 package pcRoom;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Controller {
 	
@@ -22,6 +23,11 @@ public class Controller {
 		return pcroomDAO.getInstance().M_daysales(date);
 	}
 	
+	// 로그인
+	boolean login(String memID , String memPW) {
+		membersDTO dto = new membersDTO(memID, memPW);
+		return pcroomDAO.getInstance().login(dto);
+	}
 	
 	
 	
