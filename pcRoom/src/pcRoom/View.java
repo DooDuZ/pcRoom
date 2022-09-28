@@ -11,7 +11,9 @@ public class View {
 		View view = new View();
 		
 		Scanner scanner = new Scanner(System.in);
-		
+		Runnable runnable=new Seat();
+		Thread thread = new Thread(runnable);
+		thread.start();
 		while(true) {
 			
 			System.out.println("1. 회원가입 2. 좌석선택 3. 로그인/로그아웃 4. 매출확인 5. 시간충전");
@@ -20,7 +22,7 @@ public class View {
 			if(ch==1) {
 				// 회원가입_고은시
 			}else if(ch==2){
-				// 좌석선택 (보류)
+				
 			}else if(ch==3){
 				// 로그인/로그아웃_안태섭
 			}else if(ch==4){
@@ -34,6 +36,7 @@ public class View {
 					System.out.println("확인할 월을 입력해주세요");String date=scanner.next();
 						view.M_dayrecord(date);
 				}
+				else if(sale==0) {}
 				else {System.err.println("입력할수 없는 번호입니다");}
 				
 				
