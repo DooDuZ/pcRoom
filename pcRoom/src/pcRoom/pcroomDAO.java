@@ -33,7 +33,7 @@ public class pcroomDAO {
 	private static pcroomDAO pcdao = new pcroomDAO();  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
 	
 	// 로그인 [안태섭] 미완
-	public boolean login (membersDTO dto) {
+	public int login (membersDTO dto) {
 		String sql ="SELECT * FROM members WHERE memID = ? AND memPW = ?";
 		try {
 			ps = con.prepareStatement(sql);
@@ -41,12 +41,12 @@ public class pcroomDAO {
 			ps.setString( 2 , dto.getMemPW() ); // 두 번째 ? 에 memPW 대입
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				return true; // 로그인 성공
+				return rs.getInt(1); // 로그인 성공
 			} else {
-				return false;	// 데이터베이스에 회원 정보 X
+				return 0;	// 데이터베이스에 회원 정보 X
 			}
 		} catch (Exception e) {System.out.println("데이터베이스 오류");}
-		return false;
+		return 0;
 	} // LOGIN END
 	
 	// 요금제 출력 메서드
@@ -66,7 +66,8 @@ public class pcroomDAO {
 		}
 		return list;
 	}
-	boolean charge(int ch, int payment) {
+	
+	boolean charge(int ch, int payment, int memNo) {
 		String sql = "select * from pricetable where pNo = ?;";
 		try {
 			ps = con.prepareStatement(sql);
@@ -74,15 +75,20 @@ public class pcroomDAO {
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				if(rs.getInt(2)<=payment) {
-					
+					sql = "update members set memTime = ? where memNo= ?;";
+					ps = con.prepareStatement(sql);
+					ps.setInt(1, (rs.getInt(3)*60));
+					ps.setInt(2, memNo);
+					ps.executeUpdate();
 					return true;
+				}else {
+					return false;
 				}
-			}
-			return true;
-			
+			}			
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("DB오류"+e);
 		}
+		return false;
 	}
 
 	//매출확인 

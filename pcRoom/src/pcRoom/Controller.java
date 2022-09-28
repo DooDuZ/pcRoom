@@ -9,8 +9,8 @@ public class Controller {
 	ArrayList<priceDTO> priceViewer(){
 		return pcroomDAO.getInstance().priceViewer();
 	}
-	boolean charge(int ch, int payment) {
-		// 진행중
+	boolean charge(int ch, int payment, int memNo) {
+		return pcroomDAO.getInstance().charge(ch, payment, memNo);
 	}
 	//일매출
 	dayrecordDTO daysales(String date) {
@@ -20,10 +20,8 @@ public class Controller {
 	dayrecordDTO M_daysales(String date) {
 		return pcroomDAO.getInstance().M_daysales(date);
 	}
-	
-
 	// 로그인
-	boolean login(String memID , String memPW) {
+	int login(String memID , String memPW) {
 		membersDTO dto = new membersDTO(memID, memPW);
 		return pcroomDAO.getInstance().login(dto);
 	}
