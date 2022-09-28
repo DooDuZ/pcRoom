@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class View {	
 	
 	Controller con = new Controller();
-	
+	boolean logout = true;
 	public static void main(String[] args) {
-		View view = new View();
 		
+		View view = new View();
 		Scanner scanner = new Scanner(System.in);
 		
 		while(true) {
@@ -30,17 +30,24 @@ public class View {
 					System.out.print("아이디 : "); String memID = scanner.next();
 					System.out.print("비밀번호 : "); String memPW = scanner.next();
 					view.login(memID , memPW);
+					System.out.println(view.logout);
+			
+				} else if(loginbtn == 2) { 
+					view.logout();
+					System.out.println("로그아웃 되었습니다 안녕히 가세요");
 				}
+	// System.out.println("1. 회원가입 2. 좌석선택 3. 로그아웃 4. 매출확인 5. 시간충전");
+	// System.out.println("2. 로그아웃 ");
 
 			}else if(ch==4){
 				// 매출확인_김원종
 				System.out.println("1.일일매출확인 2.월매출확인 ");int sale=scanner.nextInt();
 				if(sale==1) {
-					System.out.print("확인할 날짜를 입력해주세요 :");String date=scanner.next();
+					System.out.print("확인할 날짜를 입력해주세요 :"); String date=scanner.next();
 						view.dayrecord(date);
 				}
 				else if(sale==2) {
-					System.out.println("확인할 월을 입력해주세요");String date=scanner.next();
+					System.out.println("확인할 월을 입력해주세요"); String date=scanner.next();
 						view.M_dayrecord(date);
 				}
 				else {System.err.println("입력할수 없는 번호입니다");}
@@ -54,14 +61,22 @@ public class View {
 				view.charge(sel_numb);
 			}
 		}		
+	} // main end
+	
+	// 로그아웃 메서드
+	
+	void logout() {
+		logout = false;
 	}
 	
+	// 로그인 메서드
 	void login(String memID , String memPW) {		
 		boolean result = con.login(memID, memPW);
-		if(result == true) {
+		if(result == true) { 
+			logout = true;
 			System.out.println("로그인에 성공했습니다 즐거운 시간 되세요.");
 		}else {
-			System.out.println("로그인에 실패했습니다 안녕히 가세요");
+			System.out.println("로그인에 실패했습니다 다시 입력해주세요.");
 		}
 	}
 	
