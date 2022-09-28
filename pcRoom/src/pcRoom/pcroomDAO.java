@@ -17,7 +17,7 @@ public class pcroomDAO {
 	private pcroomDAO() {
 		try {
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/pc_room",
+					"jdbc:mysql://localhost:3306/pcroom",
 					"root", 
 					"1234");
 		} catch (Exception e) {
@@ -66,9 +66,22 @@ public class pcroomDAO {
 		}
 		return list;
 	}
-	void charge(int sel_numb) {
-		if(sel_numb==1) {
-			//로그인 구현 후 진행
+	boolean charge(int ch, int payment) {
+		String sql = "select * from pricetable where pNo = ?;";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, ch);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt(2)<=payment) {
+					
+					return true;
+				}
+			}
+			return true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
