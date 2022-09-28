@@ -22,7 +22,16 @@ public class View {
 			}else if(ch==2){
 				// 좌석선택 (보류)
 			}else if(ch==3){
-				// 로그인/로그아웃_안태섭
+				// 로그인/로그아웃_안태섭 [ 미완 ]
+				System.out.println("1. 로그인 2. 로그아웃 ");
+				int loginbtn = scanner.nextInt();
+
+				if( loginbtn == 1) {
+					System.out.print("아이디 : "); String memID = scanner.next();
+					System.out.print("비밀번호 : "); String memPW = scanner.next();
+					view.login(memID , memPW);
+				}
+
 			}else if(ch==4){
 				// 매출확인_김원종
 				System.out.println("1.일일매출확인 2.월매출확인 ");int sale=scanner.nextInt();
@@ -45,6 +54,15 @@ public class View {
 				view.charge(sel_numb);
 			}
 		}		
+	}
+	
+	void login(String memID , String memPW) {		
+		boolean result = con.login(memID, memPW);
+		if(result == true) {
+			System.out.println("로그인에 성공했습니다 즐거운 시간 되세요.");
+		}else {
+			System.out.println("로그인에 실패했습니다 안녕히 가세요");
+		}
 	}
 	
 	//시간충전 메서드

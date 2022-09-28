@@ -17,5 +17,26 @@ public class membersDTO {
 		this.memPhone = memPhone;
 		this.memTime = memTime;
 	}
+
+	public membersDTO(String memID, String memPW) {
+		this.memID = memID;
+		this.memPW = memPW;
+	}
+
+	public String getMemID() {
+		return memID;
+	}
+
+	public void setMemID(String memID) {
+		this.memID = memID;
+	}
+
+	public String getMemPW() {
+		return memPW;
+	}
+
+	public void setMemPW(String memPW) {
+		this.memPW = memPW;
+	}
 	
 }
