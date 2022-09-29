@@ -1,29 +1,12 @@
 package pcRoom.Model.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import pcRoom.Model.DTO.membersDTO;
 
-public class SeatDAO {
-	private Connection con;				// db 연동 인터페이스
-	private PreparedStatement ps;		// db 조작 인터페이스
-	private ResultSet rs;				// db 쿼리 조작 인터페이스
-	
-	
+public class SeatDAO extends PcRoomDAO{
 	//생성자
 	
 	private SeatDAO() {
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/pcroom",
-					"root", 
-					"1234");
-		} catch (Exception e) {
-			System.out.println("DB연동 실패"+e);
-		}
+		super();
 	}
 	
 	
@@ -33,6 +16,28 @@ public class SeatDAO {
 		return sDAO;
 	}
 	
+	// 회원가입
+	public boolean singUp(String memID,String memPW,String memPhone){
+		String sql = "select * from members where memID = ? ";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, memID);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return false;
+			}			
+			sql = "insert into members values (null,?,?,?,null)";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, memID);
+			ps.setString(2, memPW);
+			ps.setString(3, memPhone);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) { System.out.println("Dao 연동실패"+ e);}
+		return false;
+	}
+	
+	// 로그인
 	public boolean login(membersDTO dto) {
 		String sql = "select * from members where (memID, memPW) =  (? , ?) ;";
 		try {

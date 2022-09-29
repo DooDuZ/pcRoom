@@ -13,7 +13,7 @@ public class PcRoomDAO {
 	
 	//생성자
 		
-	protected PcRoomDAO(Connection con, PreparedStatement ps, ResultSet rs) {
+	protected PcRoomDAO() {
 		try {
 			con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/pcroom",

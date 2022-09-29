@@ -1,26 +1,13 @@
 package pcRoom.Model.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
 
-public class PcRoomAdminDAO {
-
-	private static Connection con; // db 연동 인터페이스
-	private static PreparedStatement ps; // db 조작 인터페이스
-	private static ResultSet rs; // db 쿼리 조작 인터페이스
+public class PcRoomAdminDAO extends PcRoomDAO{
 
 	// 생성자
 	private PcRoomAdminDAO() {
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pcroom", "root", "1234");
-		} catch (Exception e) {
-			System.out.println("DB연동 실패" + e);
-		}
+		super();
 	}
 
 	private static PcRoomAdminDAO praDao = new PcRoomAdminDAO();
