@@ -6,7 +6,7 @@ import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
 
 public class PcRoomUserDAO extends PcRoomDAO{
-	
+
 	private PcRoomUserDAO() {
 		super();
 	}
