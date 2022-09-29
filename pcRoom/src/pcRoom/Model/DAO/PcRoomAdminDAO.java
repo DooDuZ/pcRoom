@@ -66,5 +66,17 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 		}
 		return dto;
 	}
-
+	
+	//요금제등록 
+	public boolean inputPrice(int money,int time) {
+		String sql="insert into priceTable values(null,?,?)";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1,money);
+			ps.setInt(2,time);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {System.out.println("요금제 오류발생"+e);}
+		return false;
+	}
 }
