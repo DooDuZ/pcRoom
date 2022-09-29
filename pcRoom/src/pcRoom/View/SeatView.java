@@ -22,7 +22,6 @@ public class SeatView {
 				System.out.println("===== 게임 목록 ======");
 				System.out.println("");
 				// 멤버들이 만든 미니게임 ex)구구단게임, 가위바위보 넣기
-				
 			}else {
 				System.err.println("로그인 실패!!!");
 			}

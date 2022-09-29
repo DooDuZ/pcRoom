@@ -1,38 +1,22 @@
 package pcRoom.Model.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
 
-public class PcRoomUserDAO{
-
-	private static Connection con;				// db 연동 인터페이스
-	private static PreparedStatement ps;		// db 조작 인터페이스
-	private static ResultSet rs;				// db 쿼리 조작 인터페이스
+public class PcRoomUserDAO extends PcRoomDAO{
 	
-	//생성자
 	private PcRoomUserDAO() {
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/pcroom",
-					"root", 
-					"1234");
-		} catch (Exception e) {
-			System.out.println("DB연동 실패"+e);
-		}
+		super();
 	}
+	
 	// 메서드 작성
+	private static PcRoomUserDAO pcdao = new PcRoomUserDAO();  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
 	
 	public static PcRoomUserDAO getInstance() {
 		return pcdao;
 	}
-	
-	private static PcRoomUserDAO pcdao = new PcRoomUserDAO();  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
 	
 	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {
