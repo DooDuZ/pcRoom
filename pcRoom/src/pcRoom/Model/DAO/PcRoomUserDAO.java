@@ -1,4 +1,4 @@
-package pcRoom;
+package pcRoom.Model.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,33 +6,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class pcroomDAO {
-	
-	private Connection con;				// db 연동 인터페이스
-	private PreparedStatement ps;		// db 조작 인터페이스
-	private ResultSet rs;				// db 쿼리 조작 인터페이스
-	
-	//생성자
-	
-	private pcroomDAO() {
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/pcroom",
-					"root", 
-					"1234");
-		} catch (Exception e) {
-			System.out.println("DB연동 실패"+e);
-		}
+import pcRoom.Model.DTO.dayrecordDTO;
+import pcRoom.Model.DTO.membersDTO;
+import pcRoom.Model.DTO.priceDTO;
+
+public class PcRoomUserDAO extends PcRoomDAO{
+
+	private PcRoomUserDAO(Connection con, PreparedStatement ps, ResultSet rs) {
+		super(con, ps, rs);
+		// TODO Auto-generated constructor stub
 	}
-	
 	// 메서드 작성
-	public static pcroomDAO getInstance() {
+	public static PcRoomUserDAO getInstance() {
 		return pcdao;
 	}
 	
-	private static pcroomDAO pcdao = new pcroomDAO();  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
+	private static PcRoomUserDAO pcdao = new PcRoomUserDAO(con, ps, rs);  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
 	
-	// 로그인 [안태섭] 미완
+	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {
 		String sql ="SELECT * FROM members WHERE memID = ? AND memPW = ?";
 		try {
@@ -50,7 +41,7 @@ public class pcroomDAO {
 	} // LOGIN END
 	
 	// 요금제 출력 메서드
-	ArrayList<priceDTO> priceViewer(){
+	public ArrayList<priceDTO> priceViewer(){
 		ArrayList<priceDTO> list = new ArrayList<priceDTO>();
 		String sql = "select * from pricetable;";
 		try {
@@ -62,12 +53,12 @@ public class pcroomDAO {
 			}
 			return list;
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("DB오류"+e);
 		}
 		return list;
 	}
-	
-	boolean charge(int ch, int payment, int memNo) {
+	// 요금제 출력 메서드
+	public boolean charge(int ch, int payment, int memNo) {
 		String sql = "select * from pricetable where pNo = ?;";
 		try {
 			ps = con.prepareStatement(sql);
@@ -89,35 +80,5 @@ public class pcroomDAO {
 			System.out.println("DB오류"+e);
 		}
 		return false;
-	}
-
-	//매출확인 
-	dayrecordDTO daysales(String date) {
-		dayrecordDTO dto = new dayrecordDTO();
-		String sql="select*from dayrecord where dDate = ?";
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, date);
-			rs = ps.executeQuery();
-			rs.next();
-			dto = new dayrecordDTO(rs.getInt(1),rs.getString(2),rs.getInt(3));
-			return dto;
-		} catch (Exception e) {System.out.println("DB오류"+e);}
-		return dto;
-	}
-	//월매출확인 
-	dayrecordDTO M_daysales(String date) {
-		dayrecordDTO dto = new dayrecordDTO();
-		String sql = "select sum(dayincome) from dayrecord where substring(dDate,1,6) = ?";
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, date);
-			rs = ps.executeQuery();
-			rs.next();
-			dto = new dayrecordDTO(rs.getInt(1));
-			return dto;
-		} catch (Exception e) {System.out.println("DB오류"+e);}
-		return dto;
-	}
-	
+	}	
 }//class E

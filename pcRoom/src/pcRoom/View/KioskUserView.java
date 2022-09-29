@@ -1,20 +1,26 @@
-package pcRoom;
+package pcRoom.View;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class View {	
+import pcRoom.Controller.KioskAdminController;
+import pcRoom.Controller.KioskUserController;
+import pcRoom.Model.DTO.dayrecordDTO;
+import pcRoom.Model.DTO.priceDTO;
+
+public class KioskUserView {	
 	
-	Controller con = new Controller();
+	KioskUserController con = new KioskUserController();
+	KioskAdminController conAd = new KioskAdminController();
 	
 	public static void main(String[] args) {
 		
-		View view = new View();
+		KioskUserView view = new KioskUserView();
 		Scanner scanner = new Scanner(System.in);
 		
 		while(true) {
 			int memNo ;	//로그인 시 로그인 대상 정보 저장
-			System.out.println("1. 로그인");
+			System.out.println("1. 요금 충전");  // 0 입력시 관리자모드 / 출력은 안할 예정
 			System.out.print("아이디 : "); String memID = scanner.next();
 			System.out.print("비밀번호 : "); String memPW = scanner.next();
 			memNo = view.login(memID , memPW);
@@ -60,7 +66,7 @@ public class View {
 			}
 			*/
 	// 로그인 메서드
-	int login(String memID , String memPW) {		
+	int login(String memID , String memPW) {
 		int result = con.login(memID, memPW);
 		if(result!=0) { 
 			System.out.println("로그인에 성공했습니다.");
@@ -70,7 +76,6 @@ public class View {
 			return 0;
 		}
 	}
-	
 	//시간충전 메서드
 	void chargeView() {
 		ArrayList<priceDTO> list = new ArrayList<priceDTO>();
@@ -89,14 +94,14 @@ public class View {
 	}
 	//일별매출
 	void dayrecord(String date) {
-		dayrecordDTO dto = con.daysales(date); 
+		dayrecordDTO dto = conAd.daysales(date); 
 		System.out.println("날짜\t매출");
 		System.out.println(dto.getdDate()+"\t"+dto.getDayIncome());
 	}
 	//월별매출
 	void M_dayrecord(String date) {
-		dayrecordDTO dto = con.M_daysales(date);
+		dayrecordDTO dto = conAd.M_daysales(date);
 		System.out.println("월별매출\n");
 		System.out.println(date+" : "+dto.getDayIncome());
-	}	
+	}
 }//class E

@@ -1,4 +1,4 @@
-package pcRoom;
+package pcRoom.Model.DTO;
 
 public class dayrecordDTO {
 	  
