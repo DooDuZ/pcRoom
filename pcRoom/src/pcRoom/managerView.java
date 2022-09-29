@@ -1,5 +1,6 @@
 package pcRoom;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class managerView {
@@ -32,7 +33,8 @@ public class managerView {
 		} // if ch1 E
 
 		if (ch == 2) {
-			System.out.println("검색할 회원 아이디를 입력해주세요.");
+			System.out.println("검색할 회원 아이디를 입력해주세요.");String search=scanner.next();
+			view.memberSearch(search);
 		}
 		if (ch == 3) {
 		}
@@ -54,4 +56,27 @@ public class managerView {
 		System.out.println("월별매출\n");
 		System.out.println(dto.getdDate() + "\n" + dto.getDayIncome());
 	}
+	//회원검색 
+	void memberSearch(String search) {
+		membersDTO dto = con.memberSearch(search);
+		System.out.println("=>회원정보");
+		System.out.println(
+				"회원번호 :"+dto.getMemNo() + 
+				"\n" +
+				"회원이름 :"+dto.getMemID() + "\n" +
+				"회원비밀번호 :"+dto.getMemPW()  + "\n" +
+				"회원전화번호 :"+dto.getMemPhone() + "\n" +
+				"회원잔여시간 :"+dto.getMemTime());
+	}
+	//요금제 등록/삭제 
+	
+	
+	/*
+	 * void chargeView() { ArrayList<priceDTO> list = new ArrayList<priceDTO>();
+	 * list = con.priceViewer(); for(priceDTO tmp : list) {
+	 * System.out.println(tmp.getPriceNo()+"."+tmp.getPrice()+"원 \t"+tmp.getHours()+
+	 * "시간"); } }
+	 */
+	
+	
 }// class E
