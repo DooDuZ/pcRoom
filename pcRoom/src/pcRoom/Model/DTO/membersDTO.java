@@ -10,8 +10,6 @@ public class membersDTO {
 	
 	public membersDTO() {}
 
-	
-	
 	public membersDTO(String memID) {
 		super();
 		this.memID = memID;
