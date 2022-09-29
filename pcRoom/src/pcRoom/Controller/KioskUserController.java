@@ -11,6 +11,7 @@ import pcRoom.Model.DTO.priceDTO;
 public class KioskUserController {
 	
 	// 로그인
+
 	public int login(String memID , String memPW) {
 		membersDTO dto = new membersDTO(memID, memPW);
 		return PcRoomUserDAO.getInstance().login(dto);
@@ -23,4 +24,5 @@ public class KioskUserController {
 	public boolean charge(int ch, int payment, int memNo) {
 		return PcRoomUserDAO.getInstance().charge(ch, payment, memNo);
 	}
+
 }//class E

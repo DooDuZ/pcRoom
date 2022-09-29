@@ -6,22 +6,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
 
-public class PcRoomUserDAO extends PcRoomDAO{
+public class PcRoomUserDAO{
 
-	private PcRoomUserDAO(Connection con, PreparedStatement ps, ResultSet rs) {
-		super(con, ps, rs);
-		// TODO Auto-generated constructor stub
+	private static Connection con;				// db 연동 인터페이스
+	private static PreparedStatement ps;		// db 조작 인터페이스
+	private static ResultSet rs;				// db 쿼리 조작 인터페이스
+	
+	//생성자
+	private PcRoomUserDAO() {
+		try {
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/pcroom",
+					"root", 
+					"1234");
+		} catch (Exception e) {
+			System.out.println("DB연동 실패"+e);
+		}
 	}
 	// 메서드 작성
+	
 	public static PcRoomUserDAO getInstance() {
 		return pcdao;
 	}
 	
-	private static PcRoomUserDAO pcdao = new PcRoomUserDAO(con, ps, rs);  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
+	private static PcRoomUserDAO pcdao = new PcRoomUserDAO();  // 싱글톤 DAO 객체 [ 1. 생성자를 private  2.정적 객체 ]
 	
 	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {
@@ -36,7 +47,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 			} else {
 				return 0;	// 데이터베이스에 회원 정보 X
 			}
-		} catch (Exception e) {System.out.println("데이터베이스 오류");}
+		} catch (Exception e) {System.out.println("데이터베이스 오류"+e);}
 		return 0;
 	} // LOGIN END
 	
@@ -81,4 +92,5 @@ public class PcRoomUserDAO extends PcRoomDAO{
 		}
 		return false;
 	}	
+	
 }//class E

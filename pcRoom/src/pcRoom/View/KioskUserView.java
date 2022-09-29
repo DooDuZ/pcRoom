@@ -26,7 +26,7 @@ public class KioskUserView {
 			memNo = view.login(memID , memPW);
 			if(memNo>0) {
 				System.out.println("======요금제 선택=======");
-				view.chargeView();
+				 view.chargeView();
 				System.out.println("요금제를 선택해 주세요.");
 				int ch = scanner.nextInt();
 				System.out.println("금액을 투입해 주세요.");
@@ -34,8 +34,8 @@ public class KioskUserView {
 				view.charge(memNo, ch, payment);
 			}else {
 				continue;
-			}
-		}
+			}			
+		}		
 	} // main end
 	
 			
@@ -66,6 +66,8 @@ public class KioskUserView {
 			}
 			*/
 	// 로그인 메서드
+
+	
 	int login(String memID , String memPW) {
 		int result = con.login(memID, memPW);
 		if(result!=0) { 
@@ -104,4 +106,5 @@ public class KioskUserView {
 		System.out.println("월별매출\n");
 		System.out.println(date+" : "+dto.getDayIncome());
 	}
+
 }//class E
