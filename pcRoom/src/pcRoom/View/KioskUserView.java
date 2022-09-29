@@ -6,6 +6,7 @@ import java.util.Scanner;
 import pcRoom.Controller.KioskAdminController;
 import pcRoom.Controller.KioskUserController;
 import pcRoom.Model.DTO.dayrecordDTO;
+import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
 
 public class KioskUserView {	
@@ -21,20 +22,53 @@ public class KioskUserView {
 		while(true) {
 			int memNo ;	//로그인 시 로그인 대상 정보 저장
 			System.out.println("1. 요금 충전");  // 0 입력시 관리자모드 / 출력은 안할 예정
-			System.out.print("아이디 : "); String memID = scanner.next();
-			System.out.print("비밀번호 : "); String memPW = scanner.next();
-			memNo = view.login(memID , memPW);
-			if(memNo>0) {
-				System.out.println("======요금제 선택=======");
-				 view.chargeView();
-				System.out.println("요금제를 선택해 주세요.");
+			int start=scanner.nextInt();
+			if(start==1) {
+				System.out.print("아이디 : "); String memID = scanner.next();
+				System.out.print("비밀번호 : "); String memPW = scanner.next();
+				memNo = view.login(memID , memPW);
+				if(memNo>0) {
+					System.out.println("======요금제 선택=======");
+					 view.chargeView();
+					System.out.println("요금제를 선택해 주세요.");
+					int ch = scanner.nextInt();
+					System.out.println("금액을 투입해 주세요.");
+					int payment = scanner.nextInt();
+					view.charge(memNo, ch, payment);
+				}
+				else {
+					continue;
+				}
+			}else if(start==0) {
+				System.out.println("\t\t============현 화면은 관리자모드 입니다============");
+				System.out.println("\t1.매출확인\t2.회원정보검색\t 3.좌석 선택\t4.요금제 등록/삭제");
 				int ch = scanner.nextInt();
-				System.out.println("금액을 투입해 주세요.");
-				int payment = scanner.nextInt();
-				view.charge(memNo, ch, payment);
-			}else {
-				continue;
-			}			
+				if (ch == 1) {
+					while (true) {
+						System.out.println("1.일일매출확인 2.월매출확인 ");
+						int sale = scanner.nextInt();
+						if (sale == 1) {
+							System.out.print("확인할 날짜를 입력해주세요 :");
+							String date = scanner.next();
+							view.dayrecord(date);
+						} // if sale1 E
+						else if (sale == 2) {
+							System.out.println("확인할 월을 입력해주세요");
+							String date = scanner.next();
+							view.M_dayrecord(date);
+						} // if sale2 E
+					}//while E
+				} // if ch1 E
+
+				if (ch == 2) {
+					System.out.println("검색할 회원 아이디를 입력해주세요.");String search=scanner.next();
+					view.memberSearch(search);
+				}
+				if (ch == 3) {
+				}
+				if (ch == 4) {
+				}				
+			}
 		}		
 	} // main end
 	
@@ -107,4 +141,17 @@ public class KioskUserView {
 		System.out.println(date+" : "+dto.getDayIncome());
 	}
 
+	//회원검색 
+	void memberSearch(String search) {
+		membersDTO dto = conAd.memberSearch(search);
+		System.out.println("회원정보\n");
+		System.out.println(
+				"회원번호 :"+dto.getMemNo() + 
+				"\n" +
+				"회원이름 :"+dto.getMemID() + "\n" +
+				"회원비밀번호 :"+dto.getMemPW()  + "\n" +
+				"회원전화번호 :"+dto.getMemPhone() + "\n" +
+				"회원잔여시간 :"+dto.getMemTime());
+	}
+	
 }//class E
