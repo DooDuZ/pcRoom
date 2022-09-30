@@ -21,4 +21,8 @@ public class KioskAdminController {
 	public membersDTO memberSearch(String search) {
 		return PcRoomAdminDAO.getinstance().memberSearch(search);
 	}
+	//요금제 등록 
+	public boolean inputPrice(int money,int time) {
+		return PcRoomAdminDAO.getinstance().inputPrice(money, time);
+	}	
 }
