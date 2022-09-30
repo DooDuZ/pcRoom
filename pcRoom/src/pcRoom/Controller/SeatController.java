@@ -28,9 +28,5 @@ public class SeatController {
 	}
 	
 	//줄어든 시간 DB로 전송
-	/*
-	public void setDB(int memNo, int memTime) {
-		SeatDAO.getInstance().setDB(memNo, memTime);
-	}
-	*/
+
 }

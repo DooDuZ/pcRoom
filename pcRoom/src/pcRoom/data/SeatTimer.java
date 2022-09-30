@@ -1,20 +1,19 @@
 package pcRoom.data;
 
-import pcRoom.Controller.SeatController;
+import pcRoom.Model.DAO.SeatDAO;
 
 public class SeatTimer implements Runnable{
 	
 	int memNo;
 	String memID;
 	int memTime;
-	SeatController sc = new SeatController();
 	
 	@Override
 	public void run() {
 		while(true) {
 			System.out.println("남은 시간 : " + memTime);
 			memTime--;
-			//setDB(memNo ,memTime);
+			setDB(memNo ,memTime);
 			try {
 				Thread.sleep(60000);
 			} catch (Exception e) {
@@ -46,9 +45,9 @@ public class SeatTimer implements Runnable{
 	public void setMemTime(int memTime) {
 		this.memTime = memTime;
 	}
-	/*
+
 	public void setDB(int memNo, int memTime) {
-		sc.setDB(memNo, memTime);
+		SeatDAO.getInstance().setDB(memNo, memTime);
 	}
-	*/
+
 }

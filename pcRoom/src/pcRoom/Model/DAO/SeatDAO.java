@@ -93,19 +93,19 @@ public class SeatDAO extends PcRoomDAO{
 	
 	//줄어든 시간 DB에 저장	
 	
-	/*
+
 	public void setDB(int memNo, int memTime) {
 		String sql = "update members set memTime=? where memNo=? ;";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, memNo);
-			ps.setInt(2, memTime);
+			ps.setInt(1, memTime);
+			ps.setInt(2, memNo);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("시간차감 DB 오류"+e);
 		}
 	}
-	*/
+
 	
 	
 }

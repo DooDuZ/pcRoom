@@ -49,7 +49,7 @@ public class SeatView {
 						System.err.println("로그인 실패!!!");
 					}
 				}
-			}else if(sv.mNo>0){				
+			}else if(sv.mNo>0){
 				System.out.println("게임목록");
 				System.out.println("1.구구단 2.가위바위보 0.사용종료");
 				int selGame = scanner.nextInt();
@@ -80,10 +80,8 @@ public class SeatView {
 		return sCon.singUp(memID, memPW, memPhone);
 	}
 	
-	//시간 출력 thread에 정보 전달
-	
+	//시간 출력 thread에 정보 전달	
 	void printTime(int SeatNo, int mNo) {
-		membersDTO dto2 = sCon.printTime(SeatNo, mNo);
-		dto = dto2;
+		dto= sCon.printTime(SeatNo, mNo);
 	}
 }
