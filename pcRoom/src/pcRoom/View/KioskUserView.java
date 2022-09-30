@@ -14,16 +14,15 @@ public class KioskUserView {
 
 	KioskUserController con = new KioskUserController();
 	KioskAdminController conAd = new KioskAdminController();
-	boolean OnOff = true ;
 
 	public static void main(String[] args) {
-
+		
 		KioskUserView view = new KioskUserView();
 		Scanner scanner = new Scanner(System.in);
 		Printseat print = new Printseat();
 		Thread thread = new Thread(print);
 		thread.start();
-		
+
 		while (true) {
 			int memNo; // 로그인 시 로그인 대상 정보 저장
 			System.out.println("1. 요금 충전"); // 0 입력시 관리자모드 / 출력은 안할 예정
@@ -45,27 +44,30 @@ public class KioskUserView {
 				} else {
 					continue;
 				}
-			} else if (start == 0) {
+			} else if (start == 0 ) {
+
+				if(print.isState()) {
+					print.setState(false);
+				}
 				while (true) {
 					System.out.println("\t\t============현 화면은 관리자모드 입니다============");
 					System.out.println("\t1.매출확인\t2.회원정보검색\t 3.좌석 선택\t4.요금제 등록/삭제");
 					int ch = scanner.nextInt();
 					if (ch == 1) {
-						while (true) {
-							System.out.println("1.일일매출확인 2.월매출확인 ");
-							int sale = scanner.nextInt();
-							if (sale == 1) {
-								System.out.print("확인할 날짜를 입력해주세요 :");
-								String date = scanner.next();
-								view.dayrecord(date);
-								break;
-							} // if sale1 E
-							else if (sale == 2) {
-								System.out.println("확인할 월을 입력해주세요");
-								String date = scanner.next();
-								view.M_dayrecord(date);
-								break;
-							} // if sale2 E
+						System.out.println("1.일일매출확인 2.월매출확인 ");
+						int sale = scanner.nextInt();
+						if (sale == 1) {
+							System.out.print("확인할 날짜를 입력해주세요 :");
+							String date = scanner.next();
+							view.dayrecord(date);
+						} // if sale1 E
+						else if (sale == 2) {
+							System.out.println("확인할 월을 입력해주세요");
+							String date = scanner.next();
+							view.M_dayrecord(date);
+						}// if sale2 E
+						else if(sale==3){
+							break;
 						} // while E
 					} // if ch1 E
 
@@ -92,27 +94,29 @@ public class KioskUserView {
 						} // else E
 					} // if ch4 E
 				} // 관리자 while E
+				print.setState(true);		// while end 하는 곳		
 			} // else if (0) E
 		} // 전체 while E
 	} // main end
 
 	// System.out.println("1. 회원가입 2. 좌석선택 3. 로그아웃 4. 매출확인 5. 시간충전");
 	// System.out.println("2. 로그아웃 ");
+	
 	/*
-	 * 관리자 메뉴에 옮길 예정 else if(ch==4){ // 매출확인_김원종
-	 * System.out.println("1.일일매출확인 2.월매출확인 ");int sale=scanner.nextInt();
-	 * if(sale==1) { System.out.print("확인할 날짜를 입력해주세요 :"); String
-	 * date=scanner.next(); view.dayrecord(date); } else if(sale==2) {
-	 * System.out.println("확인할 월을 입력해주세요"); String date=scanner.next();
-	 * view.M_dayrecord(date); } else {System.err.println("입력할수 없는 번호입니다");}
-	 * 
-	 * 
-	 * }else if(ch==5){ // 시간충전_신지웅 view.chargeView();
-	 * System.out.println("요금제를 선택해 주세요."); int sel_numb = scanner.nextInt();
-	 * view.charge(sel_numb); }
+	  관리자 메뉴에 옮길 예정 else if(ch==4){ // 매출확인_김원종
+	  System.out.println("1.일일매출확인 2.월매출확인 ");int sale=scanner.nextInt();
+	  if(sale==1) { System.out.print("확인할 날짜를 입력해주세요 :"); String
+	  date=scanner.next(); view.dayrecord(date); } else if(sale==2) {
+	  System.out.println("확인할 월을 입력해주세요"); String date=scanner.next();
+	  view.M_dayrecord(date); } else {System.err.println("입력할수 없는 번호입니다");}
+	  
+	  
+	  }else if(ch==5){ // 시간충전_신지웅 view.chargeView();
+	  System.out.println("요금제를 선택해 주세요."); int sel_numb = scanner.nextInt();
+	  view.charge(sel_numb); }
 	 */
+	
 	// 로그인 메서드
-
 	int login(String memID, String memPW) {
 		int result = con.login(memID, memPW);
 		if (result != 0) {
@@ -172,13 +176,5 @@ public class KioskUserView {
 	}
 	
 	//요금제 삭제 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }// class E

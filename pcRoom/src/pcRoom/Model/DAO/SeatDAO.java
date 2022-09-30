@@ -9,13 +9,11 @@ public class SeatDAO extends PcRoomDAO{
 		super();
 	}
 	
-	
 	static SeatDAO sDAO = new SeatDAO();
 	
 	public static SeatDAO getInstance() {
 		return sDAO;
 	}
-	
 
 	// 회원가입
 	public boolean singUp(String memID,String memPW,String memPhone){

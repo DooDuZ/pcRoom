@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 public class PcRoomDAO {
 	
 	protected static Connection con;				// db 연동 인터페이스
-	protected static PreparedStatement ps;		// db 조작 인터페이스
-	protected static ResultSet rs;				// db 쿼리 조작 인터페이스
+	protected static PreparedStatement ps;			// db 조작 인터페이스
+	protected static ResultSet rs;					// db 쿼리 조작 인터페이스
 	
 	//생성자
 		

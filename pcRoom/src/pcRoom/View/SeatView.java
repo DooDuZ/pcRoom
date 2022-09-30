@@ -44,7 +44,6 @@ public class SeatView {
 				}else {
 					System.err.println("로그인 실패!!!");
 				}			
-
 			}
 		}		
 	}	
