@@ -27,6 +27,12 @@ public class SeatController {
 		return SeatDAO.getInstance().printTime(SeatNo, mNo);
 	}
 	
-	//줄어든 시간 DB로 전송
+	// 시간 차감 정보 DB 전송 -> 상호 참조 시 stackOverFlow 발생
+	// SeatTimer -> DAO 직접 접근
+	
+	//로그아웃 시간 저장 
+	public void saveLogout(int SeatNo) {
+		SeatDAO.getInstance().saveLogout(SeatNo);
+	}
 
 }

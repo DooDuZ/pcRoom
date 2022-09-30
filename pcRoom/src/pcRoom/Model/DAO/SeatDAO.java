@@ -1,7 +1,6 @@
 package pcRoom.Model.DAO;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import pcRoom.Model.DTO.currentPcDTO;
 import pcRoom.Model.DTO.membersDTO;
@@ -11,15 +10,11 @@ public class SeatDAO extends PcRoomDAO{
 	private SeatDAO() {
 		super();
 	}
-	
-	
 	static SeatDAO sDAO = new SeatDAO();
 	
 	public static SeatDAO getInstance() {
 		return sDAO;
 	}
-	
-
 	// 회원가입
 	public boolean singUp(String memID,String memPW,String memPhone){
 		String sql = "select * from members where memID = ? ";
@@ -53,7 +48,7 @@ public class SeatDAO extends PcRoomDAO{
 				return rs.getInt(1);
 			}else {
 				return 0;
-			}			
+			}
 		} catch (Exception e) {
 			System.out.println("login DB연동 오류" + e);
 		}
@@ -67,14 +62,11 @@ public class SeatDAO extends PcRoomDAO{
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, mNo);
-			//ps.setString(2, date.toString());
 			ps.setInt(2, SeatNo);
 			ps.executeUpdate();
 			sql="insert into pcrecord values(null, ?, now(), null, ?);";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, mNo);
-			// ps.setString(2, date.toString());
-			//ps.setString(2, "null");
 			ps.setInt(2, SeatNo);
 			ps.executeUpdate();
 			sql="select memID, memTime from members where memNo = ? ";
@@ -91,8 +83,7 @@ public class SeatDAO extends PcRoomDAO{
 		return dto;
 	}
 	
-	//줄어든 시간 DB에 저장	
-	
+	//줄어든 시간 DB에 저장
 
 	public void setDB(int memNo, int memTime) {
 		String sql = "update members set memTime=? where memNo=? ;";
@@ -105,7 +96,16 @@ public class SeatDAO extends PcRoomDAO{
 			System.out.println("시간차감 DB 오류"+e);
 		}
 	}
-
 	
-	
+	// 로그아웃 시간 저장
+	public void saveLogout(int SeatNo) {
+		String sql = "update pcrecord set eTime=now() where pcNo=? and eTime is null ;";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, SeatNo);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("종료시간 저장 DB오류"+e);
+		}
+	}
 }
