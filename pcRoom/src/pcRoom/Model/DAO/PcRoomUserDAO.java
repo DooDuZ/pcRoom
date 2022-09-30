@@ -1,9 +1,10 @@
 package pcRoom.Model.DAO;
 
 import java.util.ArrayList;
-
+import pcRoom.Model.DTO.currentPcDTO;
 import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
+
 
 public class PcRoomUserDAO extends PcRoomDAO{
 
@@ -17,6 +18,25 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	public static PcRoomUserDAO getInstance() {
 		return pcdao;
 	}
+	
+	// 좌석 화면 출력 메서드
+			public ArrayList<currentPcDTO> printSeat () {
+				ArrayList<currentPcDTO> list = new ArrayList<currentPcDTO>();
+				String sql = "select * from currentPC;";
+				try {
+					ps = con.prepareStatement(sql);
+					rs = ps.executeQuery();
+					while(rs.next()) {
+						currentPcDTO dto = new currentPcDTO(rs.getInt(1), rs.getBoolean(2), rs.getInt(3), rs.getString(4));
+						list.add(dto);
+					}
+					return list;
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				return list;
+			}
+	
 	
 	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {

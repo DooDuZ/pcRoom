@@ -2,23 +2,28 @@ package pcRoom.View;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import pcRoom.Controller.KioskAdminController;
 import pcRoom.Controller.KioskUserController;
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
+import pcRoom.data.Printseat;
+import pcRoom.Model.DTO.currentPcDTO;
 
 public class KioskUserView {
 
 	KioskUserController con = new KioskUserController();
 	KioskAdminController conAd = new KioskAdminController();
+	boolean OnOff = true ;
 
 	public static void main(String[] args) {
 
 		KioskUserView view = new KioskUserView();
 		Scanner scanner = new Scanner(System.in);
-
+		Printseat print = new Printseat();
+		Thread thread = new Thread(print);
+		thread.start();
+		
 		while (true) {
 			int memNo; // 로그인 시 로그인 대상 정보 저장
 			System.out.println("1. 요금 충전"); // 0 입력시 관리자모드 / 출력은 안할 예정

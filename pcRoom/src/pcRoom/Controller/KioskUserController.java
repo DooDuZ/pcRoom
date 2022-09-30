@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import pcRoom.Model.DAO.PcRoomUserDAO;
+import pcRoom.Model.DTO.currentPcDTO;
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
@@ -23,6 +24,10 @@ public class KioskUserController {
 	// 요금제 충전 메서드
 	public boolean charge(int ch, int payment, int memNo) {
 		return PcRoomUserDAO.getInstance().charge(ch, payment, memNo);
+	}
+	// 좌석 출력 메서드
+	public ArrayList<currentPcDTO> printSeat () {
+		return PcRoomUserDAO.getInstance().printSeat();
 	}
 
 }//class E
