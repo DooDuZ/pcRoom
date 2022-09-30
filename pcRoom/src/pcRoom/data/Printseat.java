@@ -41,7 +41,6 @@ public class Printseat implements Runnable{
 				}
 				
 			}		
-		}
-		
+		}		
 	}
 

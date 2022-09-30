@@ -15,7 +15,14 @@ public class membersDTO {
 		this.memID = memID;
 	}
 
+	
 
+	public membersDTO(int memNo, String memID, int memTime) {
+		super();
+		this.memNo = memNo;
+		this.memID = memID;
+		this.memTime = memTime;
+	}
 
 	public membersDTO(int memNo, String memID, String memPW, String memPhone, int memTime) {
 		this.memNo = memNo;
