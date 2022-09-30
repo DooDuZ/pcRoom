@@ -1,8 +1,12 @@
 package pcRoom.Controller;
 
+import java.util.ArrayList;
+
 import pcRoom.Model.DAO.PcRoomAdminDAO;
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
+import pcRoom.Model.DTO.pcListDTO;
+import pcRoom.Model.DTO.priceDTO;
 
 public class KioskAdminController {
 
@@ -21,8 +25,25 @@ public class KioskAdminController {
 	public membersDTO memberSearch(String search) {
 		return PcRoomAdminDAO.getinstance().memberSearch(search);
 	}
+	
+	//좌석 정보 확인
+	public pcListDTO Information(int num ) {
+		return PcRoomAdminDAO.getinstance().Information(num);
+	}
+	
+	
+	// 요금제 출력 
+	 public ArrayList<priceDTO> showPrice() {
+		 return PcRoomAdminDAO.getinstance().showPrice();
+	 }
+	
 	//요금제 등록 
 	public boolean inputPrice(int money,int time) {
 		return PcRoomAdminDAO.getinstance().inputPrice(money, time);
 	}	
+	//요금제 삭제 
+	public boolean deletePrice(int price_num) {
+		return PcRoomAdminDAO.getinstance().deletePrice(price_num);
+	}
+	
 }

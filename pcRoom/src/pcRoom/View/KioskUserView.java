@@ -7,6 +7,7 @@ import pcRoom.Controller.KioskAdminController;
 import pcRoom.Controller.KioskUserController;
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
+import pcRoom.Model.DTO.pcListDTO;
 import pcRoom.Model.DTO.priceDTO;
 
 public class KioskUserView {
@@ -41,13 +42,14 @@ public class KioskUserView {
 					continue;
 				}
 			} else if (start == 0) {
+				
 				while (true) {
-					System.out.println("\t\t============현 화면은 관리자모드 입니다============");
-					System.out.println("\t1.매출확인\t2.회원정보검색\t 3.좌석 선택\t4.요금제 등록/삭제");
+					System.out.println("============현 화면은 관리자모드 입니다============");
+					System.out.println("1.매출확인 2.회원정보검색 3.좌석 선택 4.요금제 등록/삭제 5.돌아가기");
 					int ch = scanner.nextInt();
 					if (ch == 1) {
 						while (true) {
-							System.out.println("1.일일매출확인 2.월매출확인 ");
+							System.out.println("1.일일매출확인 2.월매출확인 3.돌아가기 ");
 							int sale = scanner.nextInt();
 							if (sale == 1) {
 								System.out.print("확인할 날짜를 입력해주세요 :");
@@ -61,31 +63,52 @@ public class KioskUserView {
 								view.M_dayrecord(date);
 								break;
 							} // if sale2 E
+							else if(sale==3) {
+								break;
+							}
 						} // while E
 					} // if ch1 E
 
 					if (ch == 2) {
 						System.out.println("검색할 회원 아이디를 입력해주세요.");
-						String search = scanner.next();
+						System.out.println("전 화면으로 돌아가시려면 뒤로가기라고 입력해주세요.");
+						String search = scanner.next(); 
+						if(search.equals("뒤로가기")) {continue;}
 						view.memberSearch(search);
-						break;
 					}
 					if (ch == 3) {
+						System.out.println("확인할 자리의 번호를 입력해 주세요");
+						System.out.println("전 화면으로 돌아가시려면 0번을 입력해주세요.");
+						int num = scanner.nextInt();
+						if(num==0) {continue;}
+						view.Information(num);
 					}
 					if (ch == 4) {
-						System.out.println("1.요금제 등록 2.요금제 삭제");
+						view.showPrice();
+						System.out.println("1.요금제 등록 2.요금제 삭제 3.뒤로가기");
 						int price = scanner.nextInt();
 						if (price == 1) {
-						System.out.println("입력할 요금을 입력하세요 ");int money=scanner.nextInt();
-						System.out.println("입력한 요금에 시간을 입력해주세요");int time = scanner.nextInt();
-						view.inputPrice(money, time);
-						} 
-						else if (price == 2) {
-							
-						} else {
+							System.out.println("입력할 요금을 입력하세요 ");
+							int money = scanner.nextInt();
+							System.out.println("입력한 요금에 시간을 입력해주세요");
+							int time = scanner.nextInt();
+							view.inputPrice(money, time);
+						} else if (price == 2) {
+							System.out.println("삭제할 요금제를 선택하세요");
+							int price_num = scanner.nextInt();
+							view.deletePrice(price_num);
+						}else if( price==3) {
+							continue;
+						}
+						else {
 							System.out.println("선택할수 없는 항목입니다");
 						} // else E
 					} // if ch4 E
+					if(ch==5) {
+						break;
+					}
+					
+					
 				} // 관리자 while E
 			} // else if (0) E
 		} // 전체 while E
@@ -102,7 +125,7 @@ public class KioskUserView {
 	 * view.M_dayrecord(date); } else {System.err.println("입력할수 없는 번호입니다");}
 	 * 
 	 * 
-	 * }else if(ch==5){ // 시간충전_신지웅 view.chargeView();
+	 * }else if(==5){ // 시간충전_신지웅 view.chargeView();
 	 * System.out.println("요금제를 선택해 주세요."); int sel_numb = scanner.nextInt();
 	 * view.charge(sel_numb); }
 	 */
@@ -140,7 +163,7 @@ public class KioskUserView {
 	// 일별매출
 	void dayrecord(String date) {
 		dayrecordDTO dto = conAd.daysales(date);
-		System.out.println("날짜\t매출");
+		System.out.println("날짜\t\t매출");
 		System.out.println(dto.getdDate() + "\t" + dto.getDayIncome());
 	}
 
@@ -159,21 +182,42 @@ public class KioskUserView {
 				+ dto.getMemPW() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime());
 	}
 
-	//요금제 추가 
-	void inputPrice(int money , int time) {
+	// 요금제 출력
+	void showPrice() {
+		ArrayList<priceDTO> list = conAd.showPrice();
+		System.out.println("========요금제 목록=======");
+		System.out.println("번호\t요금\t시간");
+		for (priceDTO dto : list) {
+			System.out.print(dto.getPriceNo() + "\t" + dto.getPrice() + "\t" + dto.getHours() + "\n");
+		}
+		System.out.println("=======================");
+	}
+
+	// 좌석 정보 확인
+	void Information(int num) {
+		pcListDTO dto = conAd.Information(num);
+		System.out.println("검색한 자리의 회원정보 입니다.");
+		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "사용여부 :" + dto.iscPlay() + "\n" + "회원번호 :" + dto.getMemNo()
+				+ "\n" + "시작한시간 :" + dto.getsTime() + "\n" + "종료시간 :" + dto.geteTtime());
+
+	}
+
+	// 요금제 추가
+	void inputPrice(int money, int time) {
 		boolean result = conAd.inputPrice(money, time);
 		System.out.println("요금등록성공");
-		if(result==false) {System.out.println("실패");}	
+		if (result == false) {
+			System.out.println("요금제 등록에 실패했습니다.");
+		}
 	}
-	
-	//요금제 삭제 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	// 요금제 삭제
+	void deletePrice(int price_num) {
+		boolean result = conAd.deletePrice(price_num);
+		System.out.println("요금제 삭제 성공 ");
+		if (result == false) {
+			System.out.println("요금제 삭제에 실패했습니다.");
+		}
+	}
+
 }// class E
