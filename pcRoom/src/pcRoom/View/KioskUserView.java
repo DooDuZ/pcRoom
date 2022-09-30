@@ -8,7 +8,6 @@ import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
 import pcRoom.Model.DTO.priceDTO;
 import pcRoom.data.Printseat;
-import pcRoom.Model.DTO.currentPcDTO;
 
 public class KioskUserView {
 
@@ -20,13 +19,15 @@ public class KioskUserView {
 
 		KioskUserView view = new KioskUserView();
 		Scanner scanner = new Scanner(System.in);
+		
+		// 좌석출력 메서드 시작
 		Printseat print = new Printseat();
 		Thread thread = new Thread(print);
 		thread.start();
 		
 		while (true) {
 			int memNo; // 로그인 시 로그인 대상 정보 저장
-			System.out.println("1. 요금 충전"); // 0 입력시 관리자모드 / 출력은 안할 예정
+			// 0 입력시 관리자모드 / 출력은 안할 예정
 			int start = scanner.nextInt();
 			if (start == 1) {
 				System.out.print("아이디 : ");
@@ -111,8 +112,8 @@ public class KioskUserView {
 	 * System.out.println("요금제를 선택해 주세요."); int sel_numb = scanner.nextInt();
 	 * view.charge(sel_numb); }
 	 */
+	
 	// 로그인 메서드
-
 	int login(String memID, String memPW) {
 		int result = con.login(memID, memPW);
 		if (result != 0) {
