@@ -31,21 +31,18 @@ public class SeatView {
 				}else {
 					System.out.println("이미 있는 회원입니다.");
 				}				
-			}else {			
+			}else if(ch==2){			
 				boolean result = false;
 				result = sv.login();
 				
 				if(result) {
 					System.out.println("로그인 성공");
-					System.out.println("===== 게임 목록 ======");
-					System.out.println("");
-					// 멤버들이 만든 미니게임 ex)구구단게임, 가위바위보 넣기
-					
+					System.out.println(sv.mNo);
 				}else {
 					System.err.println("로그인 실패!!!");
-				}			
-
+				}
 			}
+			
 		}		
 	}	
 	
