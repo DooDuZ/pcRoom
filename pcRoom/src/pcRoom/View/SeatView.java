@@ -4,7 +4,9 @@ import java.util.Scanner;
 import pcRoom.Controller.SeatController;
 
 public class SeatView {
-	
+	int SeatNo;
+	int cPlay;
+	int mNo;
 	Scanner input = new Scanner(System.in);
 	SeatController sCon = new SeatController();
 	
@@ -34,12 +36,13 @@ public class SeatView {
 		String ID = input.next();
 		System.out.println("PW : ");
 		String PW = input.next();
-		boolean result = sCon.login(ID, PW);
-		if(result) {
+		int result = sCon.login(ID, PW);
+		if(result>0) {
+			this.mNo = result;
 			return true;
 		}else {
 			return false;
-		}		
+		}	
 	}
 	
 	

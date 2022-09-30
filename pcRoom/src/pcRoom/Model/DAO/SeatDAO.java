@@ -33,7 +33,7 @@ public class SeatDAO {
 		return sDAO;
 	}
 	
-	public boolean login(membersDTO dto) {
+	public int login(membersDTO dto) {
 		String sql = "select * from members where (memID, memPW) =  (? , ?) ;";
 		try {
 			ps = con.prepareStatement(sql);
@@ -41,13 +41,13 @@ public class SeatDAO {
 			ps.setString(2, dto.getMemPW());
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				return true;
+				return rs.getInt(1);
 			}else {
-				return false;
+				return 0;
 			}			
 		} catch (Exception e) {
 			System.out.println("login DB연동 오류" + e);
 		}
-		return false;
+		return 0;
 	}	
 }
