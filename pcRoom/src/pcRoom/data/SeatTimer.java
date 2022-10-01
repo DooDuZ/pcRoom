@@ -7,7 +7,6 @@ public class SeatTimer implements Runnable{
 	int memNo;
 	String memID;
 	int memTime;
-	SeatController sc = new SeatController();
 	
 	@Override
 	public void run() {
