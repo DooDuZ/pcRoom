@@ -3,17 +3,15 @@ package pcRoom.Model.DTO;
 public class currentPcDTO {
 	int poNo;
 	boolean cPlay;
-	int memNo;
-	String sTIME;
+
 	
 	public currentPcDTO() {}
 
-	public currentPcDTO(int poNo, boolean cPlay, int memNo, String sTIME) {
+	public currentPcDTO(int poNo, boolean cPlay) {
 		super();
 		this.poNo = poNo;
 		this.cPlay = cPlay;
-		this.memNo = memNo;
-		this.sTIME = sTIME;
+
 	}
 
 	public int getPoNo() {
@@ -32,21 +30,6 @@ public class currentPcDTO {
 		this.cPlay = cPlay;
 	}
 
-	public int getMemNo() {
-		return memNo;
-	}
-
-	public void setMemNo(int memNo) {
-		this.memNo = memNo;
-	}
-
-	public String getsTIME() {
-		return sTIME;
-	}
-
-	public void setsTIME(String sTIME) {
-		this.sTIME = sTIME;
-	}
 		
 }
 
