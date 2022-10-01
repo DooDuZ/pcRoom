@@ -78,7 +78,6 @@ public class KioskUserView {
 					}
 					if (ch == 3) {
 						System.out.println("확인할 자리의 번호를 입력해 주세요");
-						System.out.println("전 화면으로 돌아가시려면 0번을 입력해주세요.");
 						int num = scanner.nextInt();
 						if(num==0) {continue;}
 						view.Information(num);
