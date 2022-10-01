@@ -15,14 +15,13 @@ public class membersDTO {
 		this.memID = memID;
 	}
 
-	
-
 	public membersDTO(int memNo, String memID, int memTime) {
 		super();
 		this.memNo = memNo;
 		this.memID = memID;
 		this.memTime = memTime;
 	}
+
 
 	public membersDTO(int memNo, String memID, String memPW, String memPhone, int memTime) {
 		this.memNo = memNo;
@@ -53,42 +52,28 @@ public class membersDTO {
 		this.memPW = memPW;
 	}
 
-
-
 	public int getMemNo() {
 		return memNo;
 	}
-
-
 
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
 	}
 
-
-
 	public String getMemPhone() {
 		return memPhone;
 	}
-
-
 
 	public void setMemPhone(String memPhone) {
 		this.memPhone = memPhone;
 	}
 
-
-
 	public int getMemTime() {
 		return memTime;
 	}
 
-
-
 	public void setMemTime(int memTime) {
 		this.memTime = memTime;
 	}
-	
-	
-	
+
 }

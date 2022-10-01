@@ -31,12 +31,10 @@ public class PcRoomUserDAO extends PcRoomDAO{
 				}
 				return list;
 			} catch (Exception e) {
-				System.out.println("");
+				System.out.println("좌석출력 DB 오류" + e);
 			}
 			return list;
 		}
-	
-	
 	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {
 		String sql ="SELECT * FROM members WHERE memID = ? AND memPW = ?";
@@ -95,5 +93,4 @@ public class PcRoomUserDAO extends PcRoomDAO{
 		}
 		return false;
 	}	
-	
 }//class E

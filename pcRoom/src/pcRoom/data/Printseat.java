@@ -9,12 +9,13 @@ import pcRoom.Model.DTO.currentPcDTO;
 public class Printseat implements Runnable{
 	KioskUserController con = new KioskUserController();
 	KioskAdminController conAd = new KioskAdminController();
-	boolean OnOff = true ;
-
-		@Override
-		public void run() {
-			
-			while(OnOff) {
+	private boolean state = true;
+	
+	@Override
+	public void run() {		
+		while(true) {
+			//
+			if(state) {	
 				for(int i = 0 ; i<5 ; i++) {
 					System.out.println("");
 				}
@@ -38,9 +39,17 @@ public class Printseat implements Runnable{
 					Thread.sleep(1000);
 				} catch (Exception e) {
 					System.out.println("thread오류"+e);
-				}
-				
-			}		
+				}				
+			}
 		}		
 	}
+
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}	
+}
 
