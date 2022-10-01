@@ -16,7 +16,7 @@ public class SeatDAO extends PcRoomDAO{
 		return sDAO;
 	}
 	// 회원가입
-	public boolean singUp(String memID,String memPW,String memPhone){
+	public boolean singUp(String memID,String memPW, String memName,String memPhone){
 		String sql = "select * from members where memID = ? ";
 		try {
 			ps = con.prepareStatement(sql);
@@ -25,11 +25,12 @@ public class SeatDAO extends PcRoomDAO{
 			if(rs.next()) {
 				return false;
 			}			
-			sql = "insert into members values (null,?,?,?,null)";
+			sql = "insert into members values (null,?,?,?,?,null)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, memID);
 			ps.setString(2, memPW);
-			ps.setString(3, memPhone);
+			ps.setString(3, memName);
+			ps.setString(4, memPhone);
 			ps.executeUpdate();
 			return true;
 		} catch (Exception e) { System.out.println("Dao 연동실패"+ e);}
@@ -61,8 +62,7 @@ public class SeatDAO extends PcRoomDAO{
 		String sql = "update currentPC set cPlay=true where pcNo = ? ;";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, SeatNo);
-			
+			ps.setInt(1, SeatNo);			
 			ps.executeUpdate();
 			sql="insert into pcrecord values(null, ?, now(), null, ?);";
 			ps = con.prepareStatement(sql);

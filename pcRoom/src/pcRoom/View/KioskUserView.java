@@ -30,6 +30,9 @@ public class KioskUserView {
 			// 0 입력시 관리자모드 / 출력은 안할 예정
 			int start = scanner.nextInt();
 			if (start == 1) {
+				if(print.isState()) {
+					print.setState(false);
+				}
 				System.out.print("아이디 : ");
 				String memID = scanner.next();
 				System.out.print("비밀번호 : ");
@@ -43,7 +46,9 @@ public class KioskUserView {
 					System.out.println("금액을 투입해 주세요.");
 					int payment = scanner.nextInt();
 					view.charge(memNo, ch, payment);
+					print.setState(true);
 				} else {
+					print.setState(true);
 					continue;
 				}
 			} else if (start == 0 ) {
@@ -112,7 +117,7 @@ public class KioskUserView {
 					} // if ch4 E
 					if(ch==5) {
 						break;
-					}					
+					}
 				}// 관리자 while end
 				print.setState(true);
 			} // else if (0) E
@@ -131,7 +136,7 @@ public class KioskUserView {
 	}
 
 	// 시간충전 메서드
-	void chargeView() {
+	void chargeView() {	// 요금제 출력
 		ArrayList<priceDTO> list = new ArrayList<priceDTO>();
 		list = con.priceViewer();
 		for (priceDTO tmp : list) {
@@ -139,7 +144,7 @@ public class KioskUserView {
 		}
 	}
 
-	void charge(int memNo, int ch, int payment) {
+	void charge(int memNo, int ch, int payment) {	// 요금제 충전
 		boolean result = con.charge(ch, payment, memNo);
 		if (result) {
 			System.out.println("충전 완료");
@@ -166,8 +171,8 @@ public class KioskUserView {
 	void memberSearch(String search) {
 		membersDTO dto = conAd.memberSearch(search);
 		System.out.println("회원정보\n");
-		System.out.println("회원번호 :" + dto.getMemNo() + "\n" + "회원이름 :" + dto.getMemID() + "\n" + "회원비밀번호 :"
-				+ dto.getMemPW() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime());
+		System.out.println("회원번호 :" + dto.getMemNo() + "\n" + "회원ID :" + dto.getMemID() + "\n" + "회원비밀번호 :"
+				+ dto.getMemPW() +"\n회원이름 : " + dto.getMemName() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime());
 	}
 
 	// 요금제 출력

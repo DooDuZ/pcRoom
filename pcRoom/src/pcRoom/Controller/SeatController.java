@@ -12,8 +12,8 @@ public class SeatController {
 	SeatTimer st = new SeatTimer();
 
 	//회원가입
-	public boolean singUp(String memID,String memPW,String memPhone) {
-		return SeatDAO.getInstance().singUp(memID, memPW , memPhone);
+	public boolean singUp(String memID,String memPW, String memName,String memPhone) {
+		return SeatDAO.getInstance().singUp(memID, memPW , memName,memPhone);
 	}
 	
 	//ID 유효성검사
@@ -42,12 +42,10 @@ public class SeatController {
 		}
 		for(int i = 0; i<=10 ; i++) {
 			int a = Phone.charAt(i);
-			System.out.println(a);
 			if(a<48 || a> 57) {
 				checkNum = false;
 			}
 		}
-		System.out.println("숫자검사 결과 : " + checkNum);
 		if(checkNum) {
 			return true;
 		}else {

@@ -63,7 +63,7 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 			ps.setString(1, search);
 			rs = ps.executeQuery();
 			rs.next();
-			dto = new membersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+			dto = new membersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5), rs.getInt(6));
 			return dto;
 		} catch (Exception e) {
 			System.out.println("회원검색 오류발생" + e);

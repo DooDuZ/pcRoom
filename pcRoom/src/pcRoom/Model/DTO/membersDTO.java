@@ -4,6 +4,7 @@ public class membersDTO {
 	
 	private int memNo;
 	private String memID;
+	private String memName;
 	private String memPW;
 	private String memPhone; 
 	private int memTime;  // 분단위 저장 및 호출. 출력시 시간단위 변환
@@ -23,9 +24,10 @@ public class membersDTO {
 	}
 
 
-	public membersDTO(int memNo, String memID, String memPW, String memPhone, int memTime) {
+	public membersDTO(int memNo, String memID, String memPW, String memName,String memPhone, int memTime) {
 		this.memNo = memNo;
 		this.memID = memID;
+		this.memName = memName;
 		this.memPW = memPW;
 		this.memPhone = memPhone;
 		this.memTime = memTime;
@@ -50,6 +52,14 @@ public class membersDTO {
 
 	public void setMemPW(String memPW) {
 		this.memPW = memPW;
+	}
+	
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
 	}
 
 	public int getMemNo() {

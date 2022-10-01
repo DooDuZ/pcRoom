@@ -50,6 +50,9 @@ public class SeatView {
 						}
 					}
 					
+					System.out.println("이름 : ");
+					String memName = scanner.next();
+					
 					System.out.println("전화번호 : ");	
 					String memPhone = null;
 					for(int i = 1 ; i<=1 ; i++) {
@@ -60,11 +63,9 @@ public class SeatView {
 						}else {
 							memPhone = Phone;
 						}
-					}					
+					}
 					
-					
-					
-					if(sv.singUp(memID, memPW, memPhone) == true) {
+					if(sv.singUp(memID, memPW, memName,memPhone) == true) {
 						System.out.println("회원가입 성공");
 					}else {
 						System.out.println("이미 있는 회원입니다.");
@@ -115,8 +116,8 @@ public class SeatView {
 	}
 	
 	//회원가입
-	boolean singUp(String memID,String memPW,String memPhone) {
-		return sCon.singUp(memID, memPW, memPhone);
+	boolean singUp(String memID,String memPW, String memName,String memPhone) {
+		return sCon.singUp(memID, memPW, memName,memPhone);
 	}
 	
 	//ID,PW,PhoneNumber 유효성검사
