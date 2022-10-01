@@ -58,11 +58,11 @@ public class SeatDAO extends PcRoomDAO{
 	//고객 좌석 타이머 구현
 	public membersDTO printTime (int SeatNo, int mNo){
 		membersDTO dto = new membersDTO();
-		String sql = "update currentPC set cPlay=true, memNo = ?, sTime = now() where pcNo = ? ;";
+		String sql = "update currentPC set cPlay=true where pcNo = ? ;";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, mNo);
-			ps.setInt(2, SeatNo);
+			ps.setInt(1, SeatNo);
+			
 			ps.executeUpdate();
 			sql="insert into pcrecord values(null, ?, now(), null, ?);";
 			ps = con.prepareStatement(sql);
@@ -97,10 +97,14 @@ public class SeatDAO extends PcRoomDAO{
 		}
 	}
 	
-	// 로그아웃 시간 저장
+	// 로그아웃 시간 저장 및 currentPC 정보 변경
 	public void saveLogout(int SeatNo) {
-		String sql = "update pcrecord set eTime=now() where pcNo=? and eTime is null ;";
+		String sql = "update pcrecord set eTime=now() where pcNo = ? and eTime is null ;";
 		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, SeatNo);
+			ps.executeUpdate();
+			sql = "update currentPC set cPlay=false where pcNo = ? ;";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, SeatNo);
 			ps.executeUpdate();
