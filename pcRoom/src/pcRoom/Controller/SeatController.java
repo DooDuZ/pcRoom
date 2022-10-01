@@ -11,7 +11,6 @@ public class SeatController {
 	membersDTO dto ;
 	SeatTimer st = new SeatTimer();
 
-	
 	//회원가입
 	public boolean singUp(String memID,String memPW,String memPhone) {
 		return SeatDAO.getInstance().singUp(memID, memPW , memPhone);
@@ -28,7 +27,7 @@ public class SeatController {
 	}
 	// 비밀번호 유효성 검사
 	public boolean checkPW(String PW) {
-		String regular =  "^[A-Za-z[0-9]]{6,15}$"; // 패턴 수정 필요
+		String regular =  "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 패턴 수정 필요
 		boolean regex = Pattern.matches(regular, PW);
 		if(!regex) {
 			return false;
@@ -37,13 +36,23 @@ public class SeatController {
 	}
 	
 	public boolean checkPhone(String Phone) {
-		if(Phone.length()!=11 && !Phone.substring(0, 3).equals("010")) {
-			for(int i = 0; i<=10 ; i++) {
-				char a = Phone.charAt(i);
-			}
-			return true;
+		boolean checkNum = true;
+		if(Phone.length()!=11 || !Phone.substring(0, 3).equals("010")) {			
+			return false;
 		}
-		return false;
+		for(int i = 0; i<=10 ; i++) {
+			int a = Phone.charAt(i);
+			System.out.println(a);
+			if(a<48 || a> 57) {
+				checkNum = false;
+			}
+		}
+		System.out.println("숫자검사 결과 : " + checkNum);
+		if(checkNum) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	//로그인

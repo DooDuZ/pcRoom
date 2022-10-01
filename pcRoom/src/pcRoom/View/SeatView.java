@@ -1,7 +1,6 @@
 package pcRoom.View;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import pcRoom.Controller.SeatController;
 import pcRoom.Model.DTO.membersDTO;
@@ -43,8 +42,8 @@ public class SeatView {
 					String memPW = null;
 					for(int i = 1 ; i<=1 ; i++) {
 						String PW = scanner.next();
-						if(!sv.checkID(PW)) {
-							System.out.println("영어 대/소문자/특수문자/숫자를 포함하여 입력해주세요.");
+						if(!sv.checkPW(PW)) {
+							System.out.println("[8-20자 이상]영어 대/소문자/특수문자/숫자를 포함하여 입력해주세요.");
 							i--;
 						}else {
 							memPW = PW;
@@ -55,7 +54,7 @@ public class SeatView {
 					String memPhone = null;
 					for(int i = 1 ; i<=1 ; i++) {
 						String Phone = scanner.next();
-						if(!sv.checkID(Phone)) {
+						if(!sv.checkPhone(Phone)) {
 							System.out.println("올바른 휴대폰 번호를 입력해 주세요.");
 							i--;
 						}else {
@@ -125,10 +124,11 @@ public class SeatView {
 		return sCon.checkID(ID);
 	}
 	public boolean checkPW(String PW) {
+		System.out.println(PW);
 		return sCon.checkPW(PW);
 	}
 	public boolean checkPhone(String Phone) {
-		return sCon.checkPW(Phone);
+		return sCon.checkPhone(Phone);
 	}
 	
 	
