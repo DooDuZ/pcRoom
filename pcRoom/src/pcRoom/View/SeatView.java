@@ -19,7 +19,6 @@ public class SeatView {
 		SeatView sv = new SeatView();
 		SeatTimer st = new SeatTimer();
 		Thread thread = new Thread(st);
-		
 		while(true) {
 			if(sv.mNo==0) {
 				System.out.println("=====바다이야기=====");
@@ -49,16 +48,20 @@ public class SeatView {
 						System.err.println("로그인 실패!!!");
 					}
 				}
-			}else if(sv.mNo>0){				
+			}else if(sv.mNo>0){
 				System.out.println("게임목록");
 				System.out.println("1.구구단 2.가위바위보 0.사용종료");
 				int selGame = scanner.nextInt();
 				if(selGame == 0) {
 					sv.mNo = 0;
+					st.setLogOut(false);
+					sv.saveLogout(sv.SeatNo);
+					thread = new Thread();
+					System.out.println("로그아웃 완료");
 				}
 			}
 		}
-	}	
+	}
 	// 로그인
 	boolean login() {
 		System.out.println("ID : ");
@@ -72,7 +75,7 @@ public class SeatView {
 			return true;
 		}else {
 			return false;
-		}	
+		}
 	}
 	
 	//회원가입
@@ -81,9 +84,12 @@ public class SeatView {
 	}
 	
 	//시간 출력 thread에 정보 전달
-	
 	void printTime(int SeatNo, int mNo) {
-		membersDTO dto2 = sCon.printTime(SeatNo, mNo);
-		dto = dto2;
+		dto= sCon.printTime(SeatNo, mNo);
+	}
+	
+	// 사용종료 / 로그아웃 시 db에 종료 시간 저장 
+	void saveLogout(int SeatNo) {
+		sCon.saveLogout(SeatNo);
 	}
 }
