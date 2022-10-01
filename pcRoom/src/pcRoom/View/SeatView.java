@@ -1,6 +1,8 @@
 package pcRoom.View;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
 import pcRoom.Controller.SeatController;
 import pcRoom.Model.DTO.membersDTO;
 import pcRoom.data.SeatTimer;
@@ -26,14 +28,49 @@ public class SeatView {
 				int ch = scanner.nextInt();
 				if(ch==1) {
 					// 회원가입_고은시
-					System.out.println("아이디 : ");		String memID = scanner.next();
-					System.out.println("비밀번호 : ");		String memPW = scanner.next();
-					System.out.println("전화번호 : ");		String memPhone = scanner.next();
+					System.out.println("아이디 : ");
+					String memID = null;
+					for(int i = 1 ; i<=1 ; i++) {
+						String ID = scanner.next();
+						if(!sv.checkID(ID)) {
+							System.out.println("영어 혹은 영어/숫자로 구성된 8~16글자 사이로 입력해주세요.");
+							i--;
+						}else {
+							memID = ID;
+						}
+					}					
+					System.out.println("비밀번호 : ");	
+					String memPW = null;
+					for(int i = 1 ; i<=1 ; i++) {
+						String PW = scanner.next();
+						if(!sv.checkID(PW)) {
+							System.out.println("영어 대/소문자/특수문자/숫자를 포함하여 입력해주세요.");
+							i--;
+						}else {
+							memPW = PW;
+						}
+					}
+					
+					System.out.println("전화번호 : ");	
+					String memPhone = null;
+					for(int i = 1 ; i<=1 ; i++) {
+						String Phone = scanner.next();
+						if(!sv.checkID(Phone)) {
+							System.out.println("올바른 휴대폰 번호를 입력해 주세요.");
+							i--;
+						}else {
+							memPhone = Phone;
+						}
+					}					
+					
+					
+					
 					if(sv.singUp(memID, memPW, memPhone) == true) {
 						System.out.println("회원가입 성공");
 					}else {
 						System.out.println("이미 있는 회원입니다.");
 					}
+				
 				}else if(ch==2){
 					boolean result = false;
 					result = sv.login();
@@ -82,6 +119,18 @@ public class SeatView {
 	boolean singUp(String memID,String memPW,String memPhone) {
 		return sCon.singUp(memID, memPW, memPhone);
 	}
+	
+	//ID,PW,PhoneNumber 유효성검사
+	public boolean checkID(String ID) {
+		return sCon.checkID(ID);
+	}
+	public boolean checkPW(String PW) {
+		return sCon.checkPW(PW);
+	}
+	public boolean checkPhone(String Phone) {
+		return sCon.checkPW(Phone);
+	}
+	
 	
 	//시간 출력 thread에 정보 전달
 	void printTime(int SeatNo, int mNo) {

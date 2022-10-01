@@ -2,6 +2,7 @@ package pcRoom.Controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import pcRoom.Model.DAO.PcRoomUserDAO;
 import pcRoom.Model.DTO.currentPcDTO;

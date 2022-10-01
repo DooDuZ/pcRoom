@@ -77,9 +77,9 @@ public class KioskUserView {
 					} // if ch1 E
 					if (ch == 2) {
 						System.out.println("검색할 회원 아이디를 입력해주세요.");
-						System.out.println("전 화면으로 돌아가시려면 뒤로가기라고 입력해주세요.");
-						String search = scanner.next(); 
-						if(search.equals("뒤로가기")) {continue;}
+						System.out.println("0. 돌아가기");
+						String search = scanner.next();
+						if(Integer.parseInt(search)==0) {continue;}
 						view.memberSearch(search);
 					}
 					if (ch == 3) {
@@ -187,7 +187,6 @@ public class KioskUserView {
 		System.out.println("검색한 자리의 회원정보 입니다.");
 		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "사용여부 :" + dto.iscPlay() + "\n" + "회원번호 :" + dto.getMemNo()
 				+ "\n" + "시작한시간 :" + dto.getsTime() + "\n" + "종료시간 :" + dto.geteTtime());
-
 	}
 
 	// 요금제 추가
