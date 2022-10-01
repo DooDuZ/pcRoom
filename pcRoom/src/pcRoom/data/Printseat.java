@@ -14,8 +14,7 @@ public class Printseat implements Runnable{
 	@Override
 	public void run() {		
 		while(true) {
-			//
-			if(state) {	
+			if(state) {
 				for(int i = 0 ; i<5 ; i++) {
 					System.out.println("");
 				}
@@ -35,13 +34,13 @@ public class Printseat implements Runnable{
 						System.out.println("");
 					}
 				}
-				try {
-					Thread.sleep(1000);
-				} catch (Exception e) {
-					System.out.println("thread오류"+e);
-				}				
 			}
-		}		
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				System.out.println("thread오류"+e);
+			}
+		}
 	}
 
 	public boolean isState() {
@@ -50,6 +49,9 @@ public class Printseat implements Runnable{
 
 	public void setState(boolean state) {
 		this.state = state;
-	}	
+	}
+	public boolean setState() {
+		return state;
+	}
 }
 
