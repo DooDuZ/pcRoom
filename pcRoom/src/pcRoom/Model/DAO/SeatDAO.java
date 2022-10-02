@@ -24,7 +24,7 @@ public class SeatDAO extends PcRoomDAO{
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				return false;
-			}			
+			}
 			sql = "insert into members values (null,?,?,?,?,null)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, memID);
@@ -38,7 +38,8 @@ public class SeatDAO extends PcRoomDAO{
 	}
 	
 	// 로그인
-	public int login(membersDTO dto) {
+	public int[] login(membersDTO dto) {
+		int[] memInfo = new int[2];
 		String sql = "select * from members where (memID, memPW) =  (? , ?) ;";
 		try {
 			ps = con.prepareStatement(sql);
@@ -46,14 +47,16 @@ public class SeatDAO extends PcRoomDAO{
 			ps.setString(2, dto.getMemPW());
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				return rs.getInt(1);
+				memInfo[0] = rs.getInt(1);
+				memInfo[1] = rs.getInt(6);
+				return memInfo;
 			}else {
-				return 0;
+				return memInfo;
 			}
 		} catch (Exception e) {
 			System.out.println("login DB연동 오류" + e);
 		}
-		return 0;
+		return memInfo;
 	}
 	
 	//고객 좌석 타이머 구현

@@ -34,7 +34,7 @@ public class SeatController {
 		}
 		return true;
 	}
-	
+	// 휴대폰번호 유효성 검사
 	public boolean checkPhone(String Phone) {
 		boolean checkNum = true;
 		if(Phone.length()!=11 || !Phone.substring(0, 3).equals("010")) {			
@@ -56,7 +56,12 @@ public class SeatController {
 	//로그인
 	public int login(String ID, String PW) {
 		membersDTO dto = new membersDTO(ID, PW);
-		return SeatDAO.getInstance().login(dto);
+		int[] memInfo = SeatDAO.getInstance().login(dto);
+		if(memInfo[1]>1) {
+			return memInfo[0];
+		}else {
+			return -1;
+		}
 	}
 	
 	//고객 좌석 타이머 구현

@@ -79,7 +79,7 @@ public class SeatView {
 						sv.printTime(sv.SeatNo, sv.mNo);
 						st.setMemNo(sv.dto.getMemNo());
 						st.setMemID(sv.dto.getMemID());
-						st.setMemTime(sv.dto.getMemTime());						
+						st.setMemTime(sv.dto.getMemTime());
 						thread.start();
 					}else {
 						System.err.println("로그인 실패!!!");
@@ -111,6 +111,9 @@ public class SeatView {
 			this.mNo = result;
 			return true;
 		}else {
+			if(result == -1) {
+				System.out.println("충전된 시간이 없습니다.");
+			}
 			return false;
 		}
 	}
