@@ -135,7 +135,6 @@ public class SeatView {
 		return sCon.checkPhone(Phone);
 	}
 	
-	
 	//시간 출력 thread에 정보 전달
 	void printTime(int SeatNo, int mNo) {
 		dto= sCon.printTime(SeatNo, mNo);
