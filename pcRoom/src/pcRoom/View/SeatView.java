@@ -136,6 +136,8 @@ public class SeatView {
 		}else {
 			if(result == -1) {
 				System.out.println("충전된 시간이 없습니다.");
+			}else if(result==-2) {
+				System.out.println("[카운터 문의] 이미 사용중인 ID입니다.");
 			}
 			return false;
 		}

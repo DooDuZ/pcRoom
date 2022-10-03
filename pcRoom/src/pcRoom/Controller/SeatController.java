@@ -57,7 +57,9 @@ public class SeatController {
 	public int login(String ID, String PW) {
 		membersDTO dto = new membersDTO(ID, PW);
 		int[] memInfo = SeatDAO.getInstance().login(dto);
-		if(memInfo[1]>1) {
+		if(memInfo[0]==-2) {
+			return memInfo[0];
+		}else if(memInfo[1]>1) {
 			return memInfo[0];
 		}else {
 			return -1;
