@@ -1,25 +1,25 @@
 package pcRoom.Model.DTO;
 
 public class currentPcDTO {
-	int poNo;
+	int pcNo;
 	boolean cPlay;
 
 	
 	public currentPcDTO() {}
 
-	public currentPcDTO(int poNo, boolean cPlay) {
+	public currentPcDTO(int pcNo, boolean cPlay) {
 		super();
-		this.poNo = poNo;
+		this.pcNo = pcNo;
 		this.cPlay = cPlay;
 
 	}
 
-	public int getPoNo() {
-		return poNo;
+	public int getPcNo() {
+		return pcNo;
 	}
 
-	public void setPoNo(int poNo) {
-		this.poNo = poNo;
+	public void setPoNo(int pcNo) {
+		this.pcNo = pcNo;
 	}
 
 	public boolean iscPlay() {

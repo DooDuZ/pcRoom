@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import pcRoom.Model.DAO.PcRoomAdminDAO;
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
-import pcRoom.Model.DTO.pcListDTO;
+import pcRoom.Model.DTO.PcRecord;
 import pcRoom.Model.DTO.priceDTO;
 
 public class KioskAdminController {
@@ -27,7 +27,7 @@ public class KioskAdminController {
 	}
 	
 	//좌석 정보 확인
-	public pcListDTO Information(int num ) {
+	public PcRecord Information(int num ) {
 		return PcRoomAdminDAO.getinstance().Information(num);
 	}
 	

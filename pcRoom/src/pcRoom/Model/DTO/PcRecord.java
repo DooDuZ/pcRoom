@@ -1,24 +1,24 @@
 package pcRoom.Model.DTO;
 
-public class pcListDTO {
+public class PcRecord {
 	
 	private int pcNo;
-	private boolean cPlay;
-	private int memNo;
 	private String sTime;
 	private String eTtime;
+	private int memNo;
+	private String memID;
 	
-	public pcListDTO() {
+	public PcRecord() {
 		super();
 	}
 
-	public pcListDTO(int pcNo, boolean cPlay, int memNo, String sTime, String eTtime) {
+	public PcRecord(int pcNo, String sTime, String eTtime, int memNo, String memID) {
 		super();
 		this.pcNo = pcNo;
-		this.cPlay = cPlay;
-		this.memNo = memNo;
 		this.sTime = sTime;
 		this.eTtime = eTtime;
+		this.memNo = memNo;
+		this.memID = memID;
 	}
 
 	public int getPcNo() {
@@ -27,14 +27,6 @@ public class pcListDTO {
 
 	public void setPcNo(int pcNo) {
 		this.pcNo = pcNo;
-	}
-
-	public boolean iscPlay() {
-		return cPlay;
-	}
-
-	public void setcPlay(boolean cPlay) {
-		this.cPlay = cPlay;
 	}
 
 	public int getMemNo() {
@@ -60,7 +52,11 @@ public class pcListDTO {
 	public void seteTtime(String eTtime) {
 		this.eTtime = eTtime;
 	}
-	
-	
-	
+	public String getmemID() {
+		return memID;
+	}
+
+	public void setmemID(String memID) {
+		this.memID = memID;
+	}	
 }

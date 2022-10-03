@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import pcRoom.Controller.KioskAdminController;
 import pcRoom.Controller.KioskUserController;
+import pcRoom.Model.DTO.PcRecord;
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
-import pcRoom.Model.DTO.pcListDTO;
 import pcRoom.Model.DTO.priceDTO;
 import pcRoom.data.Printseat;
 
@@ -57,20 +57,20 @@ public class KioskUserView {
 				}
 				while (true) {
 					System.out.println("============현 화면은 관리자모드 입니다============");
-					System.out.println("1.매출확인 2.회원정보검색 3.좌석 선택 4.요금제 등록/삭제 5.돌아가기");
+					System.out.println("1.매출확인 2.회원정보검색 3.좌석 검색 4.요금제 등록/삭제 5.돌아가기");
 					int ch = scanner.nextInt();
 					if (ch == 1) {
 						while (true) {
 							System.out.println("1.일일매출확인 2.월매출확인 3.돌아가기 ");
 							int sale = scanner.nextInt();
 							if (sale == 1) {
-								System.out.print("확인할 날짜를 입력해주세요 :");
+								System.out.print("확인할 날짜를 입력해주세요 : yyyy-mm-dd");
 								String date = scanner.next();
 								view.dayrecord(date);
 								break;
 							} // if sale1 E
 							else if (sale == 2) {
-								System.out.println("확인할 월을 입력해주세요");
+								System.out.println("확인할 월을 입력해주세요 : yyyy-mm");
 								String date = scanner.next();
 								view.M_dayrecord(date);
 								break;
@@ -84,7 +84,7 @@ public class KioskUserView {
 						System.out.println("검색할 회원 아이디를 입력해주세요.");
 						System.out.println("0. 돌아가기");
 						String search = scanner.next();
-						if(Integer.parseInt(search)==0) {continue;}
+						if(search.equals("0")) {continue;} // parseInt 시 돌아가기만 작동하고 검색 기능에서 오류 / equals로 수정
 						view.memberSearch(search);
 					}
 					if (ch == 3) {
@@ -99,9 +99,9 @@ public class KioskUserView {
 						System.out.println("1.요금제 등록 2.요금제 삭제 3.뒤로가기");
 						int price = scanner.nextInt();
 						if (price == 1) {
-							System.out.println("입력할 요금을 입력하세요 ");
+							System.out.println("입력할 요금을 입력하세요");
 							int money = scanner.nextInt();
-							System.out.println("입력한 요금에 시간을 입력해주세요");
+							System.out.println("입력한 요금의 시간을 입력해주세요");
 							int time = scanner.nextInt();
 							view.inputPrice(money, time);
 						} else if (price == 2) {
@@ -157,7 +157,7 @@ public class KioskUserView {
 	void dayrecord(String date) {
 		dayrecordDTO dto = conAd.daysales(date);
 		System.out.println("날짜\t\t매출");
-		System.out.println(dto.getdDate() + "\t" + dto.getDayIncome());
+		System.out.println(date + "\t" + dto.getDayIncome()); // dao 매서드 dto 생성자 간소화로 인한 날짜 dto.getdDate-> date매개변수로 수정
 	}
 
 	// 월별매출
@@ -187,17 +187,19 @@ public class KioskUserView {
 	}
 
 	// 좌석 정보 확인
+		// pclist -> currentPC 테이블 이름 및 필드 수정으로 인한 출력 내용 일부 수정
 	void Information(int num) {
-		pcListDTO dto = conAd.Information(num);
+		PcRecord dto = conAd.Information(num);
 		System.out.println("검색한 자리의 회원정보 입니다.");
-		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "사용여부 :" + dto.iscPlay() + "\n" + "회원번호 :" + dto.getMemNo()
-				+ "\n" + "시작한시간 :" + dto.getsTime() + "\n" + "종료시간 :" + dto.geteTtime());
+		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "회원번호 :" + dto.getMemNo()
+				+ "\n" + "회원ID : "+ dto.getmemID() + "\n시작한시간 :" + dto.getsTime());
 	}
+	
 
 	// 요금제 추가
 	void inputPrice(int money, int time) {
 		boolean result = conAd.inputPrice(money, time);
-		System.out.println("요금등록성공");
+		System.out.println("요금 등록 성공");
 		if (result == false) {
 			System.out.println("요금제 등록에 실패했습니다.");
 		}
