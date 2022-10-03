@@ -12,7 +12,7 @@ public class SeatTimer implements Runnable{
 	@Override
 	public void run() {
 		while(logOut) {
-			System.out.println("남은 시간 : " + memTime);
+			System.out.println("남은 시간 : " + memTime/60+ "시간 "+ memTime%60 + "분");
 			memTime--;
 			setDB(memNo ,memTime);
 			if(memTime == 0) {

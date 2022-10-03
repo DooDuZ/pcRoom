@@ -8,31 +8,39 @@ import pcRoom.data.SeatTimer;
 
 public class SeatView {
 
-	int SeatNo;	//좌석 번호
+	int SeatNo = 1;	//좌석 번호
 	int mNo = 0; // 비로그인 0 / 로그인 memNo
 	
-	/*	
-		public SeatView() {}
 	
+	/*
+		public SeatView() {}
+		
 		public SeatView(int seatNo) {
 			super();
 			SeatNo = seatNo;
 		}
 	*/
-	
 	static Scanner scanner = new Scanner(System.in);
 
 	SeatController sCon = new SeatController();	//seatController 객체
 	membersDTO dto;
 	
 	public static void main(String[] args) {	// 실행
+		startView();
+	}
+	
+	// 전체 실행 매서드
+	
+	static void startView() {
 		SeatView sv = new SeatView();
 		SeatTimer st = new SeatTimer();
 		Thread thread = new Thread(st);
-
-		System.out.println("좌석 번호 : ");
-		int seatNo = scanner.nextInt();
-		sv.setSeatNo(seatNo);
+		
+		/*
+			System.out.println("좌석 번호 : ");
+			int seatNo = scanner.nextInt();
+			sv.setSeatNo(seatNo);
+		*/
 		
 		while(true) {
 			if(sv.mNo==0) {
@@ -113,6 +121,7 @@ public class SeatView {
 			}
 		}
 	}
+	
 	// 로그인
 	boolean login() {
 		System.out.println("ID : ");
