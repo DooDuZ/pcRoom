@@ -8,7 +8,7 @@ import pcRoom.data.SeatTimer;
 
 public class SeatController {	
 	
-	membersDTO dto ;
+	membersDTO dto;
 	SeatTimer st = new SeatTimer();
 
 	//회원가입
