@@ -98,7 +98,6 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 				if(rs.next()) {
 					dto.setmemID(rs.getString(1));
 				}
-
 			}else {
 				dto.setMemNo(-1);
 			}

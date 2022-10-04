@@ -8,18 +8,16 @@ import pcRoom.data.SeatTimer;
 
 public class SeatView {
 
-	int SeatNo = 2;	//좌석 번호
+	int SeatNo = 2;//좌석 번호
 	int mNo = 0; // 비로그인 0 / 로그인 memNo
-
 	
-	/*
-		public SeatView() {}
-		
-		public SeatView(int seatNo) {
-			super();
-			SeatNo = seatNo;
-		}
-	*/
+	public SeatView() {}
+	
+	public SeatView(int seatNo) {
+		super();
+		this.SeatNo = seatNo;
+	}
+	
 	static Scanner scanner = new Scanner(System.in);
 
 	SeatController sCon = new SeatController();	//seatController 객체

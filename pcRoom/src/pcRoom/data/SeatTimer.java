@@ -11,9 +11,7 @@ public class SeatTimer implements Runnable{
 	private SeatView sv;
 	private int SeatNo;
 	private boolean logOut = true;
-	
-	
-	
+
 	@Override
 	public void run() {
 		while(logOut) {

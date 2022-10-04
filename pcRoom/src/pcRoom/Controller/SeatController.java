@@ -27,7 +27,8 @@ public class SeatController {
 	}
 	// 비밀번호 유효성 검사
 	public boolean checkPW(String PW) {
-		String regular =  "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 패턴 수정 필요
+		String regular = 
+			"^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; 
 		boolean regex = Pattern.matches(regular, PW);
 		if(!regex) {
 			return false;
@@ -36,21 +37,12 @@ public class SeatController {
 	}
 	// 휴대폰번호 유효성 검사
 	public boolean checkPhone(String Phone) {
-		boolean checkNum = true;
-		if(Phone.length()!=11 || !Phone.substring(0, 3).equals("010")) {			
+		String regular =  "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$"; 
+		boolean regex = Pattern.matches(regular, Phone);
+		if(!regex) {
 			return false;
 		}
-		for(int i = 0; i<=10 ; i++) {
-			int a = Phone.charAt(i);
-			if(a<48 || a> 57) {
-				checkNum = false;
-			}
-		}
-		if(checkNum) {
-			return true;
-		}else {
-			return false;
-		}
+		return true;
 	}
 	
 	//로그인
