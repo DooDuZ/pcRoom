@@ -21,7 +21,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	// 좌석 화면 출력 메서드
 		public ArrayList<currentPcDTO> printSeat () {
 			ArrayList<currentPcDTO> list = new ArrayList<currentPcDTO>();
-			String sql = "select * from currentPC;";
+			String sql = "select * from currentPc;";
 			try {
 				ps = con.prepareStatement(sql);
 				rs = ps.executeQuery();
@@ -55,7 +55,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	// 요금제 출력 메서드
 	public ArrayList<priceDTO> priceViewer(){
 		ArrayList<priceDTO> list = new ArrayList<priceDTO>();
-		String sql = "select * from pricetable;";
+		String sql = "select * from priceTable;";
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -78,7 +78,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 			rs = ps.executeQuery();
 			rs.next();
 			int memtime  = rs.getInt(1);
-			sql = "select * from pricetable where pNo = ?;";
+			sql = "select * from priceTable where pNo = ?;";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, ch);
 			rs = ps.executeQuery();
@@ -89,7 +89,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 				ps.setInt(1, memtime+(rs.getInt(3)*60)); // 이전 시간 값에 덮어쓰기 되는 상태. 추가 변수 선언 필요.
 				ps.setInt(2, memNo);
 				ps.executeUpdate();
-				sql = "insert into dayrecord values (null, now(), ?);";
+				sql = "insert into dayRecord values (null, now(), ?);";
 				ps = con.prepareStatement(sql);					
 				ps.setInt(1, rs.getInt(2));
 				ps.executeUpdate();
