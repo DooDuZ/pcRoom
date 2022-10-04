@@ -172,7 +172,7 @@ public class KioskUserView {
 		membersDTO dto = conAd.memberSearch(search);
 		System.out.println("회원정보\n");
 		System.out.println("회원번호 :" + dto.getMemNo() + "\n" + "회원ID :" + dto.getMemID() + "\n" + "회원비밀번호 :"
-				+ dto.getMemPW() +"\n회원이름 : " + dto.getMemName() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime());
+				+ dto.getMemPW() +"\n회원이름 : " + dto.getMemName() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime()/60 +"시간" + dto.getMemTime()%60 + "분" );
 	}
 
 	// 요금제 출력
