@@ -83,7 +83,7 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 			rs = ps.executeQuery();
 			rs.next();
 			if(rs.getBoolean(2)) {
-				sql="select * from pcrecord where pcNo=? and eTime is null";
+				sql="select * from PCrecord where pcNo=? and eTime is null";
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, num);
 				rs = ps.executeQuery();

@@ -103,6 +103,9 @@ public class SeatDAO extends PcRoomDAO{
 			ps.setInt(1, memTime);
 			ps.setInt(2, memNo);
 			ps.executeUpdate();
+			if(memTime==0) {
+				saveLogout(memTime);
+			}
 		} catch (Exception e) {
 			System.out.println("시간차감 DB 오류"+e);
 		}
