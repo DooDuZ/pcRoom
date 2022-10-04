@@ -26,13 +26,14 @@ public class SeatView {
 	membersDTO dto;
 	
 	public static void main(String[] args) {	// 실행
-		startView();
+		SeatView sv02 = new SeatView(2);
+		sv02.startView(sv02.SeatNo);
 	}
 	
 	// 전체 실행 매서드
 	
-	static void startView() {
-		SeatView sv = new SeatView();
+	void startView(int SeatNo) {
+		SeatView sv = new SeatView(SeatNo);
 		SeatTimer st = new SeatTimer();
 		st.setSv(sv);
 		st.setSeatNo(sv.SeatNo);
