@@ -40,7 +40,7 @@ public class SeatDAO extends PcRoomDAO{
 	// 로그인
 	public int[] login(membersDTO dto) {
 		int[] memInfo = new int[2];
-		String sql = "select * from members, PCrecord where memID = 'sin9158' and eTime is null;";
+		String sql = "select * from members, PCrecord where memID = ? and eTime is null;";
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();

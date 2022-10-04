@@ -37,7 +37,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 		}
 	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {
-		String sql ="SELECT * FROM members WHERE memID = ? AND memPW = ?";
+		String sql ="SELECT * FROM members WHERE memID = '?' AND memPW = ?";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString( 1 , dto.getMemID() ); // 첫 번째 ? 에 memID 대입
