@@ -36,21 +36,12 @@ public class SeatController {
 	}
 	// 휴대폰번호 유효성 검사
 	public boolean checkPhone(String Phone) {
-		boolean checkNum = true;
-		if(Phone.length()!=11 || !Phone.substring(0, 3).equals("010")) {			
+		String regular =  "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$"; // 패턴 수정 필요
+		boolean regex = Pattern.matches(regular, Phone);
+		if(!regex) {
 			return false;
 		}
-		for(int i = 0; i<=10 ; i++) {
-			int a = Phone.charAt(i);
-			if(a<48 || a> 57) {
-				checkNum = false;
-			}
-		}
-		if(checkNum) {
-			return true;
-		}else {
-			return false;
-		}
+		return true;
 	}
 	
 	//로그인

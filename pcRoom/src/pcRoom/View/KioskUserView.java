@@ -81,11 +81,13 @@ public class KioskUserView {
 						} // while E
 					} // if ch1 E
 					if (ch == 2) {
+						view.memberList();
 						System.out.println("검색할 회원 아이디를 입력해주세요.");
 						System.out.println("0. 돌아가기");
 						String search = scanner.next();
 						if(search.equals("0")) {continue;} // parseInt 시 돌아가기만 작동하고 검색 기능에서 오류 / equals로 수정
 						view.memberSearch(search);
+						
 					}
 					if (ch == 3) {
 						System.out.println("확인할 자리의 번호를 입력해 주세요");
@@ -165,7 +167,19 @@ public class KioskUserView {
 		System.out.println("월별매출\n");
 		System.out.println(date + " : " + dto.getDayIncome());
 	}
-
+	//회원리스트출력 
+	void memberList() {
+		ArrayList<membersDTO> list = conAd.memberList();
+		System.out.println("========회원 목록=======");
+		System.out.println("회원번호\t아이디\t\t이름");
+		for (membersDTO dto : list) {
+			System.out.print(dto.getMemNo() +"\t"+ dto.getMemID()+"\t\t"+ dto.getMemPW() +"\n");
+			
+		}
+		System.out.println("=======================");
+	}
+	
+	
 	// 회원검색
 	void memberSearch(String search) {
 		membersDTO dto = conAd.memberSearch(search);

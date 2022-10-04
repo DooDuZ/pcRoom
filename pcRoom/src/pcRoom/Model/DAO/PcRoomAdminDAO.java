@@ -54,6 +54,26 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 		return dto;
 	}
 
+	//회원리스트출력
+	public ArrayList<membersDTO> memberList( ) {
+		ArrayList<membersDTO> list = new ArrayList<>();
+		String sql = "select *from members";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				membersDTO dto = new membersDTO(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4));
+				list.add(dto);
+			}
+			return list;
+		} catch (Exception e) {
+			System.out.println("회원정보출력 오류발생" + e);
+		}
+		return list;
+	}
+	
+	
+	
 	// 회원검색
 	public membersDTO memberSearch(String search) {
 		membersDTO dto = new membersDTO();
@@ -83,7 +103,7 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 			rs = ps.executeQuery();
 			rs.next();
 			if(rs.getBoolean(2)) {
-				sql="select * from pcrecord where pcNo=? and eTime is null";
+				sql="select * from PCrecord where pcNo=? and eTime is null";
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, num);
 				rs = ps.executeQuery();
