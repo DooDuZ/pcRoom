@@ -8,7 +8,9 @@ import pcRoom.data.SeatTimer;
 
 public class SeatView {
 
+
 	int SeatNo = 2;//좌석 번호
+
 	int mNo = 0; // 비로그인 0 / 로그인 memNo
 	
 	public SeatView() {}

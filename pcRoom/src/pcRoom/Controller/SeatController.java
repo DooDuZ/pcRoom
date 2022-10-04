@@ -37,7 +37,7 @@ public class SeatController {
 	}
 	// 휴대폰번호 유효성 검사
 	public boolean checkPhone(String Phone) {
-		String regular =  "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$"; 
+		String regular =  "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$";
 		boolean regex = Pattern.matches(regular, Phone);
 		if(!regex) {
 			return false;
