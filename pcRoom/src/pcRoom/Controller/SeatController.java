@@ -59,7 +59,9 @@ public class SeatController {
 		int[] memInfo = SeatDAO.getInstance().login(dto);
 		if(memInfo[0]==-2) {
 			return memInfo[0];
-		}else if(memInfo[1]>1) {
+		}else if (memInfo[0]==0) {
+			return memInfo[0];
+		}else if(memInfo[0]>=1 && memInfo[1]>1) {
 			return memInfo[0];
 		}else {
 			return -1;
