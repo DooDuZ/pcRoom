@@ -2,13 +2,13 @@ package pcRoom.View;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import pcRoom.Controller.KioskAdminController;
 import pcRoom.Controller.KioskUserController;
+import pcRoom.Model.DTO.PcRecord;
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
-import pcRoom.Model.DTO.pcListDTO;
 import pcRoom.Model.DTO.priceDTO;
+import pcRoom.data.Printseat;
 
 public class KioskUserView {
 
@@ -16,15 +16,23 @@ public class KioskUserView {
 	KioskAdminController conAd = new KioskAdminController();
 
 	public static void main(String[] args) {
-
+		
 		KioskUserView view = new KioskUserView();
 		Scanner scanner = new Scanner(System.in);
+		
+		// 좌석출력 메서드 시작
+		Printseat print = new Printseat();
+		Thread thread = new Thread(print);
+		thread.start();
 
 		while (true) {
 			int memNo; // 로그인 시 로그인 대상 정보 저장
-			System.out.println("1. 요금 충전"); // 0 입력시 관리자모드 / 출력은 안할 예정
+			// 0 입력시 관리자모드 / 출력은 안할 예정
 			int start = scanner.nextInt();
 			if (start == 1) {
+				if(print.isState()) {
+					print.setState(false);
+				}
 				System.out.print("아이디 : ");
 				String memID = scanner.next();
 				System.out.print("비밀번호 : ");
@@ -38,27 +46,31 @@ public class KioskUserView {
 					System.out.println("금액을 투입해 주세요.");
 					int payment = scanner.nextInt();
 					view.charge(memNo, ch, payment);
+					print.setState(true);
 				} else {
+					print.setState(true);
 					continue;
 				}
-			} else if (start == 0) {
-				
+			} else if (start == 0 ) {
+				if(print.isState()) {
+					print.setState(false);
+				}
 				while (true) {
 					System.out.println("============현 화면은 관리자모드 입니다============");
-					System.out.println("1.매출확인 2.회원정보검색 3.좌석 선택 4.요금제 등록/삭제 5.돌아가기");
+					System.out.println("1.매출확인 2.회원정보검색 3.좌석 검색 4.요금제 등록/삭제 5.돌아가기");
 					int ch = scanner.nextInt();
 					if (ch == 1) {
 						while (true) {
 							System.out.println("1.일일매출확인 2.월매출확인 3.돌아가기 ");
 							int sale = scanner.nextInt();
 							if (sale == 1) {
-								System.out.print("확인할 날짜를 입력해주세요 :");
+								System.out.print("확인할 날짜를 입력해주세요 : yyyy-mm-dd");
 								String date = scanner.next();
 								view.dayrecord(date);
 								break;
 							} // if sale1 E
 							else if (sale == 2) {
-								System.out.println("확인할 월을 입력해주세요");
+								System.out.println("확인할 월을 입력해주세요 : yyyy-mm");
 								String date = scanner.next();
 								view.M_dayrecord(date);
 								break;
@@ -68,12 +80,11 @@ public class KioskUserView {
 							}
 						} // while E
 					} // if ch1 E
-
 					if (ch == 2) {
 						System.out.println("검색할 회원 아이디를 입력해주세요.");
-						System.out.println("전 화면으로 돌아가시려면 뒤로가기라고 입력해주세요.");
-						String search = scanner.next(); 
-						if(search.equals("뒤로가기")) {continue;}
+						System.out.println("0. 돌아가기");
+						String search = scanner.next();
+						if(search.equals("0")) {continue;} // parseInt 시 돌아가기만 작동하고 검색 기능에서 오류 / equals로 수정
 						view.memberSearch(search);
 					}
 					if (ch == 3) {
@@ -87,9 +98,9 @@ public class KioskUserView {
 						System.out.println("1.요금제 등록 2.요금제 삭제 3.뒤로가기");
 						int price = scanner.nextInt();
 						if (price == 1) {
-							System.out.println("입력할 요금을 입력하세요 ");
+							System.out.println("입력할 요금을 입력하세요");
 							int money = scanner.nextInt();
-							System.out.println("입력한 요금에 시간을 입력해주세요");
+							System.out.println("입력한 요금의 시간을 입력해주세요");
 							int time = scanner.nextInt();
 							view.inputPrice(money, time);
 						} else if (price == 2) {
@@ -106,30 +117,12 @@ public class KioskUserView {
 					if(ch==5) {
 						break;
 					}
-					
-					
-				} // 관리자 while E
+				}// 관리자 while end
+				print.setState(true);
 			} // else if (0) E
 		} // 전체 while E
 	} // main end
-
-	// System.out.println("1. 회원가입 2. 좌석선택 3. 로그아웃 4. 매출확인 5. 시간충전");
-	// System.out.println("2. 로그아웃 ");
-	/*
-	 * 관리자 메뉴에 옮길 예정 else if(ch==4){ // 매출확인_김원종
-	 * System.out.println("1.일일매출확인 2.월매출확인 ");int sale=scanner.nextInt();
-	 * if(sale==1) { System.out.print("확인할 날짜를 입력해주세요 :"); String
-	 * date=scanner.next(); view.dayrecord(date); } else if(sale==2) {
-	 * System.out.println("확인할 월을 입력해주세요"); String date=scanner.next();
-	 * view.M_dayrecord(date); } else {System.err.println("입력할수 없는 번호입니다");}
-	 * 
-	 * 
-	 * }else if(==5){ // 시간충전_신지웅 view.chargeView();
-	 * System.out.println("요금제를 선택해 주세요."); int sel_numb = scanner.nextInt();
-	 * view.charge(sel_numb); }
-	 */
 	// 로그인 메서드
-
 	int login(String memID, String memPW) {
 		int result = con.login(memID, memPW);
 		if (result != 0) {
@@ -142,7 +135,7 @@ public class KioskUserView {
 	}
 
 	// 시간충전 메서드
-	void chargeView() {
+	void chargeView() {	// 요금제 출력
 		ArrayList<priceDTO> list = new ArrayList<priceDTO>();
 		list = con.priceViewer();
 		for (priceDTO tmp : list) {
@@ -150,7 +143,7 @@ public class KioskUserView {
 		}
 	}
 
-	void charge(int memNo, int ch, int payment) {
+	void charge(int memNo, int ch, int payment) {	// 요금제 충전
 		boolean result = con.charge(ch, payment, memNo);
 		if (result) {
 			System.out.println("충전 완료");
@@ -163,7 +156,7 @@ public class KioskUserView {
 	void dayrecord(String date) {
 		dayrecordDTO dto = conAd.daysales(date);
 		System.out.println("날짜\t\t매출");
-		System.out.println(dto.getdDate() + "\t" + dto.getDayIncome());
+		System.out.println(date + "\t" + dto.getDayIncome()); // dao 매서드 dto 생성자 간소화로 인한 날짜 dto.getdDate-> date매개변수로 수정
 	}
 
 	// 월별매출
@@ -177,8 +170,8 @@ public class KioskUserView {
 	void memberSearch(String search) {
 		membersDTO dto = conAd.memberSearch(search);
 		System.out.println("회원정보\n");
-		System.out.println("회원번호 :" + dto.getMemNo() + "\n" + "회원이름 :" + dto.getMemID() + "\n" + "회원비밀번호 :"
-				+ dto.getMemPW() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime());
+		System.out.println("회원번호 :" + dto.getMemNo() + "\n" + "회원ID :" + dto.getMemID() + "\n" + "회원비밀번호 :"
+				+ dto.getMemPW() +"\n회원이름 : " + dto.getMemName() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime());
 	}
 
 	// 요금제 출력
@@ -193,23 +186,23 @@ public class KioskUserView {
 	}
 
 	// 좌석 정보 확인
+		// pclist -> currentPC 테이블 이름 및 필드 수정으로 인한 출력 내용 일부 수정
 	void Information(int num) {
-		pcListDTO dto = conAd.Information(num);
+		PcRecord dto = conAd.Information(num);
 		System.out.println("검색한 자리의 회원정보 입니다.");
-		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "사용여부 :" + dto.iscPlay() + "\n" + "회원번호 :" + dto.getMemNo()
-				+ "\n" + "시작한시간 :" + dto.getsTime() + "\n" + "종료시간 :" + dto.geteTtime());
-
+		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "회원번호 :" + dto.getMemNo()
+				+ "\n" + "회원ID : "+ dto.getmemID() + "\n시작한시간 :" + dto.getsTime());
 	}
+	
 
 	// 요금제 추가
 	void inputPrice(int money, int time) {
 		boolean result = conAd.inputPrice(money, time);
-		System.out.println("요금등록성공");
+		System.out.println("요금 등록 성공");
 		if (result == false) {
 			System.out.println("요금제 등록에 실패했습니다.");
 		}
 	}
-
 	// 요금제 삭제
 	void deletePrice(int price_num) {
 		boolean result = conAd.deletePrice(price_num);
@@ -218,5 +211,4 @@ public class KioskUserView {
 			System.out.println("요금제 삭제에 실패했습니다.");
 		}
 	}
-
 }// class E

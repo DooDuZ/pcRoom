@@ -4,18 +4,16 @@ package pcRoom.Model.DAO;
 
 import pcRoom.Model.DTO.dayrecordDTO;
 import pcRoom.Model.DTO.membersDTO;
-import pcRoom.Model.DTO.pcListDTO;
+import pcRoom.Model.DTO.PcRecord;
 import pcRoom.Model.DTO.priceDTO;
 
-public class PcRoomAdminDAO extends PcRoomDAO {
 
-	private static final String String = null;
+public class PcRoomAdminDAO extends PcRoomDAO{
 
-	// 생성자
 	private PcRoomAdminDAO() {
 		super();
 	}
-
+	
 	private static PcRoomAdminDAO praDao = new PcRoomAdminDAO();
 
 	public static PcRoomAdminDAO getinstance() {
@@ -25,13 +23,13 @@ public class PcRoomAdminDAO extends PcRoomDAO {
 	// 매출확인
 	public dayrecordDTO daysales(String date) {
 		dayrecordDTO dto = new dayrecordDTO();
-		String sql = "select*from dayrecord where dDate = ?";
+		String sql = "select sum(dayIncome) from dayrecord where substring(dDate, 1, 10) = ?;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, date);
 			rs = ps.executeQuery();
 			rs.next();
-			dto = new dayrecordDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
+			dto = new dayrecordDTO(rs.getInt(1));
 			return dto;
 		} catch (Exception e) {
 			System.out.println("매출확인 오류발생" + e);
@@ -42,7 +40,7 @@ public class PcRoomAdminDAO extends PcRoomDAO {
 	// 월매출확인
 	public dayrecordDTO M_daysales(String date) {
 		dayrecordDTO dto = new dayrecordDTO();
-		String sql = "select sum(dayIncome) from dayRecord where month(dDate)= ?";
+		String sql = "select sum(dayIncome) from dayrecord where substring(dDate, 1, 7) = ?;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, date);
@@ -59,14 +57,15 @@ public class PcRoomAdminDAO extends PcRoomDAO {
 	// 회원검색
 	public membersDTO memberSearch(String search) {
 		membersDTO dto = new membersDTO();
-		String sql = "select* from members where memId=?;";
+		String sql = "select * from members where memId=?;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, search);
 			rs = ps.executeQuery();
-			rs.next();
-			dto = new membersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
-			return dto;
+			if(rs.next()) {
+				dto = new membersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5), rs.getInt(6));
+				return dto;
+			}
 		} catch (Exception e) {
 			System.out.println("회원검색 오류발생" + e);
 		}
@@ -75,15 +74,34 @@ public class PcRoomAdminDAO extends PcRoomDAO {
 	
 	
 	//좌석 정보 확인 
-	public pcListDTO Information(int num ) {
-		pcListDTO dto = new pcListDTO();
-		String sql="select* from pcList where pcNo=?";
+	public PcRecord Information(int num ) {
+		PcRecord dto = new PcRecord();
+		String sql="select * from currentPc where pcNo=?";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, num);
 			rs = ps.executeQuery();
 			rs.next();
-			dto = new pcListDTO(rs.getInt(1), rs.getBoolean(2), rs.getInt(3), rs.getString(4),rs.getString(5));
+			if(rs.getBoolean(2)) {
+				sql="select * from pcrecord where pcNo=? and eTime is null";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, num);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					dto = new PcRecord(rs.getInt(5), rs.getString(3), rs.getString(4), rs.getInt(2), null);
+				}
+
+				sql="select memID from members where memNo= ? ";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, dto.getMemNo());
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					dto.setmemID(rs.getString(1));
+				}
+
+			}else {
+				dto.setMemNo(-1);
+			}
 			return dto;
 		} catch (Exception e) {
 			System.out.println("좌석검색 오류발생" + e);
@@ -94,7 +112,7 @@ public class PcRoomAdminDAO extends PcRoomDAO {
 	// 요금제 출력
 	public ArrayList<priceDTO> showPrice() {
 		ArrayList<priceDTO> list = new ArrayList<>();
-		String sql = "select *from  priceTable";
+		String sql = "select *from priceTable";
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -137,5 +155,4 @@ public class PcRoomAdminDAO extends PcRoomDAO {
 		}
 		return false;
 	}
-
 }
