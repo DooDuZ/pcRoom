@@ -8,7 +8,7 @@ import pcRoom.data.SeatTimer;
 
 public class SeatView {
 
-	int SeatNo = 2;	//좌석 번호
+	int SeatNo = 3;	//좌석 번호
 	int mNo = 0; // 비로그인 0 / 로그인 memNo
 	
 	/*
@@ -54,9 +54,9 @@ public class SeatView {
 						String ID = scanner.next();
 						if(!sv.checkID(ID)) {
 							System.out.println("영어 혹은 영어/숫자로 구성된 8~16글자 사이로 입력해주세요.");
-							i--;
+							i--;//false
 						}else {
-							memID = ID;
+							memID = ID;//true
 						}
 					}					
 					System.out.println("비밀번호 : ");	
