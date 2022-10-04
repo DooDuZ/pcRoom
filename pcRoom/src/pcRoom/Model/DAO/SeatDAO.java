@@ -40,7 +40,7 @@ public class SeatDAO extends PcRoomDAO{
 	// 로그인
 	public int[] login(membersDTO dto) {
 		int[] memInfo = new int[2];
-		String sql = "select * from members, pcrecord where memID = 'sin9158' and eTime is null;";
+		String sql = "select * from members, PCrecord where memID = 'sin9158' and eTime is null;";
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -69,12 +69,12 @@ public class SeatDAO extends PcRoomDAO{
 	//고객 좌석 타이머 구현
 	public membersDTO printTime (int SeatNo, int mNo){
 		membersDTO dto = new membersDTO();
-		String sql = "update currentPC set cPlay=true where pcNo = ? ;";
+		String sql = "update currentPc set cPlay=true where pcNo = ? ;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, SeatNo);			
 			ps.executeUpdate();
-			sql="insert into pcrecord values(null, ?, now(), null, ?);";
+			sql="insert into PCrecord values(null, ?, now(), null, ?);";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, mNo);
 			ps.setInt(2, SeatNo);
@@ -109,12 +109,12 @@ public class SeatDAO extends PcRoomDAO{
 	
 	// 로그아웃 시간 저장 및 currentPC 정보 변경
 	public void saveLogout(int SeatNo) {
-		String sql = "update pcrecord set eTime=now() where pcNo = ? and eTime is null ;";
+		String sql = "update PCrecord set eTime=now() where pcNo = ? and eTime is null ;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, SeatNo);
 			ps.executeUpdate();
-			sql = "update currentPC set cPlay=false where pcNo = ? ;";
+			sql = "update currentPc set cPlay=false where pcNo = ? ;";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, SeatNo);
 			ps.executeUpdate();

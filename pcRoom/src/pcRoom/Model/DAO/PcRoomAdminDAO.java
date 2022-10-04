@@ -23,7 +23,7 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 	// 매출확인
 	public dayrecordDTO daysales(String date) {
 		dayrecordDTO dto = new dayrecordDTO();
-		String sql = "select sum(dayIncome) from dayrecord where substring(dDate, 1, 10) = ?;";
+		String sql = "select sum(dayIncome) from dayRecord where substring(dDate, 1, 10) = ?;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, date);
@@ -40,7 +40,7 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 	// 월매출확인
 	public dayrecordDTO M_daysales(String date) {
 		dayrecordDTO dto = new dayrecordDTO();
-		String sql = "select sum(dayIncome) from dayrecord where substring(dDate, 1, 7) = ?;";
+		String sql = "select sum(dayIncome) from dayRecord where substring(dDate, 1, 7) = ?;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, date);
