@@ -57,12 +57,12 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 	//회원리스트출력
 	public ArrayList<membersDTO> memberList( ) {
 		ArrayList<membersDTO> list = new ArrayList<>();
-		String sql = "select *from members";
+		String sql = "select * from members";
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				membersDTO dto = new membersDTO(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4));
+				membersDTO dto = new membersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
 				list.add(dto);
 			}
 			return list;
@@ -71,13 +71,25 @@ public class PcRoomAdminDAO extends PcRoomDAO{
 		}
 		return list;
 	}
-	
+	//회원 삭제
+	public boolean deleteMember(int memNo) {
+		String sql = "delete from members where memNo = ?; ";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, memNo);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("회원삭제DB오류" + e);
+		}
+		return false;
+	}
 	
 	
 	// 회원검색
 	public membersDTO memberSearch(String search) {
 		membersDTO dto = new membersDTO();
-		String sql = "select * from members where memId=?;";
+		String sql = "select * from members where memNo=?;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, search);
