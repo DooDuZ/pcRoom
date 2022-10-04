@@ -45,8 +45,12 @@ public class SeatDAO extends PcRoomDAO{
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getMemID());
 			rs = ps.executeQuery();
-			rs.next();
-			int memNo = rs.getInt(1);
+			int memNo = 0;
+			if(rs.next()) {
+				memNo = rs.getInt(1);
+			}else {
+				return memInfo;
+			}
 			sql = "select * from PCrecord where memNo = ? and eTime is null;";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, memNo);
@@ -109,14 +113,6 @@ public class SeatDAO extends PcRoomDAO{
 			ps.setInt(1, memTime);
 			ps.setInt(2, memNo);
 			ps.executeUpdate();
-			if(memTime==0) {
-				sql = "select * from PCrecord where memNo = ? and eTime is null;";
-				ps = con.prepareStatement(sql);
-				ps.setInt(1, memNo);
-				rs = ps.executeQuery();
-				rs.next();
-				saveLogout(rs.getInt(2));
-			}
 		} catch (Exception e) {
 			System.out.println("시간차감 DB 오류"+e);
 		}

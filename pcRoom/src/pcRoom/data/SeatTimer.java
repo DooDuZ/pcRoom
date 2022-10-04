@@ -1,13 +1,18 @@
 package pcRoom.data;
 
 import pcRoom.Model.DAO.SeatDAO;
+import pcRoom.View.SeatView;
 
 public class SeatTimer implements Runnable{
 	
-	int memNo;
-	String memID;
-	int memTime;
-	boolean logOut = true;
+	private int memNo;
+	private String memID;
+	private int memTime;
+	private SeatView sv;
+	private int SeatNo;
+	private boolean logOut = true;
+	
+	
 	
 	@Override
 	public void run() {
@@ -17,6 +22,9 @@ public class SeatTimer implements Runnable{
 			setDB(memNo ,memTime);
 			if(memTime == 0) {
 				logOut = false;
+				sv.saveLogout(SeatNo);
+				System.out.println("[사용종료]시간 만료");
+				return;
 			}
 			try {
 				Thread.sleep(60000);
@@ -58,7 +66,20 @@ public class SeatTimer implements Runnable{
 	public void setLogOut(boolean logOut) {
 		this.logOut = logOut;
 	}
+
+	public SeatView getSv() {
+		return sv;
+	}
+	public void setSv(SeatView sv) {
+		this.sv = sv;
+	}
 	
+	public int getSeatNo() {
+		return SeatNo;
+	}
+	public void setSeatNo(int seatNo) {
+		SeatNo = seatNo;
+	}
 	// 차감된 시간 db로 전송
 		// controller 객체에 접근 시 상호 호출관계로 무한정 객체 생성하게 됌
 		// controller에 있는 메서드의 static or dao에 직접 접근 중 하나 선택
