@@ -194,7 +194,6 @@ public class KioskUserView {
 		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "회원번호 :" + dto.getMemNo()
 				+ "\n" + "회원ID : "+ dto.getmemID() + "\n시작한시간 :" + dto.getsTime());
 	}
-	
 
 	// 요금제 추가
 	void inputPrice(int money, int time) {
