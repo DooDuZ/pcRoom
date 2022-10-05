@@ -72,7 +72,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 		return list;
 	}
 	// 요금제 충전 메서드
-	public boolean charge(int ch, int payment, int memNo) {
+	public int charge(int ch, int payment, int memNo) {
 		String sql = "select memTime from members where memNo = ?;";
 		try {
 			ps = con.prepareStatement(sql);
@@ -95,11 +95,11 @@ public class PcRoomUserDAO extends PcRoomDAO{
 				ps = con.prepareStatement(sql);					
 				ps.setInt(1, rs.getInt(2));
 				ps.executeUpdate();
-				return true;
+				return (payment-rs.getInt(2));
 			}					
 		} catch (Exception e) {
 			System.out.println("DB오류"+e);
 		}
-		return false;
+		return -1;
 	}	
 }//class E

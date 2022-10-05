@@ -44,7 +44,13 @@ public class KioskUserView {
 					int ch = scanner.nextInt();
 					System.out.println("금액을 투입해 주세요.");
 					int payment = scanner.nextInt();
-					view.charge(memNo, ch, payment);	//결제 메소드 실행
+					
+					if(view.charge(memNo, ch, payment)>=0) {//결제 메소드 실행
+						System.out.println("거스름돈 : " + view.charge(memNo, ch, payment));
+					}else {
+						System.out.println("[충전 실패] 금액이 부족합니다.");
+					}
+						
 					print.setState(true);	// 좌석 출력 재시작
 				} else {
 					print.setState(true);
@@ -143,12 +149,13 @@ public class KioskUserView {
 		}
 	}
 
-	void charge(int memNo, int ch, int payment) {	// 요금제 충전
-		boolean result = con.charge(ch, payment, memNo);
-		if (result) {
+	int charge(int memNo, int ch, int payment) {	// 요금제 충전
+		int result = con.charge(ch, payment, memNo);
+		if (result>=0) {
 			System.out.println("충전 완료");
+			return result;
 		} else {
-			System.out.println("[충전 실패] 금액이 부족합니다.");
+			return result;
 		}
 	}
 

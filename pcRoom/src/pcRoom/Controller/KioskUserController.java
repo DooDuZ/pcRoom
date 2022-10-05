@@ -24,7 +24,7 @@ public class KioskUserController {
 	}
 	
 	// 요금제 충전 메서드
-	public boolean charge(int ch, int payment, int memNo) {
+	public int charge(int ch, int payment, int memNo) {
 		return PcRoomUserDAO.getInstance().charge(ch, payment, memNo);
 	}
 	
