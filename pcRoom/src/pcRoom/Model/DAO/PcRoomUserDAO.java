@@ -20,8 +20,8 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	}	
 	// 좌석 화면 출력 메서드
 	public ArrayList<currentPcDTO> printSeat () {
-		ArrayList<currentPcDTO> list = new ArrayList<currentPcDTO>();
-		String sql = "select * from currentPc;";
+		ArrayList<currentPcDTO> list = new ArrayList<currentPcDTO>();//좌석정보 Array 리스트 이용 담기 
+		String sql = "select * from currentPc;";//sql문작성 
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -37,7 +37,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	}
 	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {
-		String sql ="SELECT * FROM members WHERE memID = '?' AND memPW = ?";
+		String sql ="SELECT * FROM members WHERE memID = ? AND memPW = ?";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString( 1 , dto.getMemID() ); // 첫 번째 ? 에 memID 대입

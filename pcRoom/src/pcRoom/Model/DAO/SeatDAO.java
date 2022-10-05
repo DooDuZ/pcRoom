@@ -54,7 +54,7 @@ public class SeatDAO extends PcRoomDAO{
 			sql = "select * from PCrecord where memNo = ? and eTime is null;";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, memNo);
-			rs = ps.executeQuery();
+			rs = ps.executeQuery(); 
 			if(rs.next()) {
 				memInfo[0] = -2;
 				return memInfo;
