@@ -9,7 +9,7 @@ import pcRoom.data.SeatTimer;
 public class SeatView {
 
 
-	int SeatNo;//좌석 번호
+	int SeatNo=15;//좌석 번호
 
 	int mNo = 0; // 비로그인 0 / 로그인 memNo
 	
@@ -26,7 +26,7 @@ public class SeatView {
 	membersDTO dto;
 	
 	public static void main(String[] args) {	// 실행
-		SeatView sv02 = new SeatView(2);
+		SeatView sv02 = new SeatView();
 		sv02.startView(sv02.SeatNo);
 	}
 	
