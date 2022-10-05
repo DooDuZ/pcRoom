@@ -18,28 +18,19 @@ public class Printseat implements Runnable{
 				for(int i = 0 ; i<5 ; i++) {
 					System.out.println("");
 				}
-				System.out.println("1. 요금 충전");
+				System.out.println("1. 요금 충전\n");
 				ArrayList<currentPcDTO> list = new ArrayList<>();
 				list = con.printSeat();
-				System.out.println();
 				int count=0;
 				for( currentPcDTO tmp : list) {
 					count++;
-					if(tmp.iscPlay()) {
-						System.out.print("[X]");
-					}else {
-						System.out.print("[ ]");
-					}
-					if(count%5==0) {
-						System.out.println("");
-					}
+					if(tmp.iscPlay()) {System.out.print("[X]");}
+					else {System.out.print("[ ]");}
+					if(count%5==0) {System.out.println("");}
 				}
 			}
-			try {
-				Thread.sleep(1000);
-			} catch (Exception e) {
-				System.out.println("thread오류"+e);
-			}
+			try {Thread.sleep(1000);}
+			catch (Exception e) {System.out.println("thread오류"+e);}
 		}
 	}
 
