@@ -20,16 +20,18 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	}	
 	// 좌석 화면 출력 메서드
 	public ArrayList<currentPcDTO> printSeat () {
-		ArrayList<currentPcDTO> list = new ArrayList<currentPcDTO>();//좌석정보 Array 리스트 이용 담기 
-		String sql = "select * from currentPc;";//sql문작성 
+		ArrayList<currentPcDTO> list = new ArrayList<currentPcDTO>();
+		// 현재 pc정보를 저장할 수 있는 DTO를 자료형으로 사용하는 ArrayList 생성
+		String sql = "select * from currentPc;";	// 현재 pc정보 호출
 		try {
-			ps = con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			while(rs.next()) {
+			ps = con.prepareStatement(sql); 
+			rs = ps.executeQuery();	// 쿼리조작
+			while(rs.next()) {	// sql문의 결과값이 있으면 값이 없을 때 까지
 				currentPcDTO dto = new currentPcDTO(rs.getInt(1), rs.getBoolean(2));
-				list.add(dto);
+				// dto에 정보 저장
+				list.add(dto); //ArrayList에 dto를 저장
 			}
-			return list;
+			return list; // list를 반환
 		} catch (Exception e) {
 			System.out.println("좌석출력 DB 오류" + e);
 		}
@@ -70,7 +72,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 		return list;
 	}
 	// 요금제 충전 메서드
-	public boolean charge(int ch, int payment, int memNo) {
+	public int charge(int ch, int payment, int memNo) {
 		String sql = "select memTime from members where memNo = ?;";
 		try {
 			ps = con.prepareStatement(sql);
@@ -93,11 +95,11 @@ public class PcRoomUserDAO extends PcRoomDAO{
 				ps = con.prepareStatement(sql);					
 				ps.setInt(1, rs.getInt(2));
 				ps.executeUpdate();
-				return true;
+				return (payment-rs.getInt(2));
 			}					
 		} catch (Exception e) {
 			System.out.println("DB오류"+e);
 		}
-		return false;
+		return -1;
 	}	
 }//class E
