@@ -152,7 +152,6 @@ public class KioskUserView {
 	int charge(int memNo, int ch, int payment) {	// 요금제 충전
 		int result = con.charge(ch, payment, memNo);
 		if (result>=0) {
-			System.out.println("충전 완료");
 			return result;
 		} else {
 			return result;
