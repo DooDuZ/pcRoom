@@ -8,32 +8,38 @@ import pcRoom.data.SeatTimer;
 
 public class SeatView {
 
-	int SeatNo = 4;	//좌석 번호
+
+	int SeatNo;//좌석 번호
+
 	int mNo = 0; // 비로그인 0 / 로그인 memNo
 	
-	/*
-		public SeatView() {}
-		
-		public SeatView(int seatNo) {
-			super();
-			SeatNo = seatNo;
-		}
-	*/
+	public SeatView() {}
+	
+	public SeatView(int seatNo) {
+		super();
+		this.SeatNo = seatNo;
+	}
+	
 	static Scanner scanner = new Scanner(System.in);
 
 	SeatController sCon = new SeatController();	//seatController 객체
 	membersDTO dto;
 	
 	public static void main(String[] args) {	// 실행
-		startView();
+		SeatView sv02 = new SeatView(2);
+		sv02.startView(sv02.SeatNo);
 	}
 	
 	// 전체 실행 매서드
 	
-	static void startView() {
-		SeatView sv = new SeatView();
+	void startView(int SeatNo) {
+		SeatView sv = new SeatView(SeatNo);
 		SeatTimer st = new SeatTimer();
+		st.setSv(sv);
+		st.setSeatNo(sv.SeatNo);
 		Thread thread = new Thread(st);
+		boolean turnOff = true;
+		
 		
 		/*
 			System.out.println("좌석 번호 : ");
@@ -41,7 +47,7 @@ public class SeatView {
 			sv.setSeatNo(seatNo);
 		*/
 		
-		while(true) {
+		while(turnOff) {
 			if(sv.mNo==0) {
 				System.out.println("=====바다이야기=====");
 				System.out.println("1.회원가입 2.로그인");
@@ -110,12 +116,12 @@ public class SeatView {
 				System.out.println("게임목록");
 				System.out.println("1.구구단 2.가위바위보 0.사용종료");
 				int selGame = scanner.nextInt();
-				if(selGame == 0) {
+				if(selGame == 0) {					
+					System.out.println("로그아웃 완료");
 					sv.mNo = 0;
 					st.setLogOut(false);
+					turnOff = false;
 					sv.saveLogout(sv.SeatNo);
-					thread = new Thread();
-					System.out.println("로그아웃 완료");
 				}
 			}
 		}
@@ -133,7 +139,9 @@ public class SeatView {
 			this.mNo = result;
 			return true;
 		}else {
-			if(result == -1) {
+			if(result == 0) {
+				System.out.println("없는 아이디 입니다.");
+			}else if(result == -1) {
 				System.out.println("충전된 시간이 없습니다.");
 			}else if(result==-2) {
 				System.out.println("[카운터 문의] 이미 사용중인 ID입니다.");
@@ -166,7 +174,7 @@ public class SeatView {
 	}
 	
 	// 사용종료 / 로그아웃 시 db에 종료 시간 저장 
-	void saveLogout(int SeatNo) {
+	public void saveLogout(int SeatNo) {
 		sCon.saveLogout(SeatNo);
 	}
 

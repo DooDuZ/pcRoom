@@ -8,7 +8,7 @@ import pcRoom.data.SeatTimer;
 
 public class SeatController {	
 	
-	membersDTO dto ;
+	membersDTO dto;
 	SeatTimer st = new SeatTimer();
 
 	//회원가입
@@ -27,7 +27,8 @@ public class SeatController {
 	}
 	// 비밀번호 유효성 검사
 	public boolean checkPW(String PW) {
-		String regular =  "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 패턴 수정 필요
+		String regular = 
+			"^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; 
 		boolean regex = Pattern.matches(regular, PW);
 		if(!regex) {
 			return false;
@@ -36,7 +37,7 @@ public class SeatController {
 	}
 	// 휴대폰번호 유효성 검사
 	public boolean checkPhone(String Phone) {
-		String regular =  "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$"; // 패턴 수정 필요
+		String regular =  "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$";
 		boolean regex = Pattern.matches(regular, Phone);
 		if(!regex) {
 			return false;
@@ -50,7 +51,9 @@ public class SeatController {
 		int[] memInfo = SeatDAO.getInstance().login(dto);
 		if(memInfo[0]==-2) {
 			return memInfo[0];
-		}else if(memInfo[1]>1) {
+		}else if (memInfo[0]==0) {
+			return memInfo[0];
+		}else if(memInfo[0]>=1 && memInfo[1]>1) {
 			return memInfo[0];
 		}else {
 			return -1;

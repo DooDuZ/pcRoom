@@ -83,10 +83,22 @@ public class KioskUserView {
 					if (ch == 2) {
 						view.memberList();
 						System.out.println("검색할 회원 아이디를 입력해주세요.");
-						System.out.println("0. 돌아가기");
+						System.out.println("0.돌아가기 1.회원 상세정보 2.회원삭제");
 						String search = scanner.next();
-						if(search.equals("0")) {continue;} // parseInt 시 돌아가기만 작동하고 검색 기능에서 오류 / equals로 수정
-						view.memberSearch(search);
+						if(search.equals("0")) {
+							continue;
+						} // parseInt 시 돌아가기만 작동하고 검색 기능에서 오류 / equals로 수정
+						else if(search.equals("1")) {
+							System.out.println("회원번호 입력 : ");
+							String memNo2 = scanner.next();
+							view.memberSearch(memNo2);
+						}
+						else if(search.equals("2")) {
+							System.out.println("회원번호 입력 : ");
+							int memNo2 = scanner.nextInt();
+							view.deleteMember(memNo2);
+						}
+						
 						
 					}
 					if (ch == 3) {
@@ -160,7 +172,6 @@ public class KioskUserView {
 		System.out.println("날짜\t\t매출");
 		System.out.println(date + "\t" + dto.getDayIncome()); // dao 매서드 dto 생성자 간소화로 인한 날짜 dto.getdDate-> date매개변수로 수정
 	}
-
 	// 월별매출
 	void M_dayrecord(String date) {
 		dayrecordDTO dto = conAd.M_daysales(date);
@@ -171,14 +182,21 @@ public class KioskUserView {
 	void memberList() {
 		ArrayList<membersDTO> list = conAd.memberList();
 		System.out.println("========회원 목록=======");
-		System.out.println("회원번호\t아이디\t\t이름");
+		System.out.println("회원번호\t이름\t아이디");
 		for (membersDTO dto : list) {
-			System.out.print(dto.getMemNo() +"\t"+ dto.getMemID()+"\t\t"+ dto.getMemPW() +"\n");
-			
+			System.out.print(dto.getMemNo() +"\t"+ dto.getMemName()+"\t"+ dto.getMemID() +"\n");
 		}
 		System.out.println("=======================");
 	}
-	
+	// 회원 삭제
+	void deleteMember(int memNo) {
+		boolean result = conAd.deleteMember(memNo);
+		if(result) {
+			System.out.println("회원 삭제 성공");
+		}else {
+			System.out.println("[시스템 오류] 삭제 실패");
+		}
+	}
 	
 	// 회원검색
 	void memberSearch(String search) {
@@ -187,7 +205,6 @@ public class KioskUserView {
 		System.out.println("회원번호 :" + dto.getMemNo() + "\n" + "회원ID :" + dto.getMemID() + "\n" + "회원비밀번호 :"
 				+ dto.getMemPW() +"\n회원이름 : " + dto.getMemName() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime()/60 +"시간" + dto.getMemTime()%60 + "분" );
 	}
-
 	// 요금제 출력
 	void showPrice() {
 		ArrayList<priceDTO> list = conAd.showPrice();
@@ -207,7 +224,6 @@ public class KioskUserView {
 		System.out.println("pcNo :" + dto.getPcNo() + "\n" + "회원번호 :" + dto.getMemNo()
 				+ "\n" + "회원ID : "+ dto.getmemID() + "\n시작한시간 :" + dto.getsTime());
 	}
-	
 
 	// 요금제 추가
 	void inputPrice(int money, int time) {

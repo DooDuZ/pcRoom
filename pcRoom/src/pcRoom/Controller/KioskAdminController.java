@@ -21,9 +21,13 @@ public class KioskAdminController {
 		return PcRoomAdminDAO.getinstance().M_daysales(date);
 	}
 	
-	// 회원리스트 출력 
+	// 회원리스트 출력
 	public ArrayList<membersDTO> memberList() {
 		return PcRoomAdminDAO.getinstance().memberList();
+	}
+	// 회원 삭제
+	public boolean deleteMember(int memNo) {
+		return PcRoomAdminDAO.getinstance().deleteMember(memNo);
 	}
 	
 	// 회원검색
