@@ -21,15 +21,17 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	// 좌석 화면 출력 메서드
 	public ArrayList<currentPcDTO> printSeat () {
 		ArrayList<currentPcDTO> list = new ArrayList<currentPcDTO>();
-		String sql = "select * from currentPc;";
+		// 현재 pc정보를 저장할 수 있는 DTO를 자료형으로 사용하는 ArrayList 생성
+		String sql = "select * from currentPc;";	// 현재 pc정보 호출
 		try {
-			ps = con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			while(rs.next()) {
+			ps = con.prepareStatement(sql); 
+			rs = ps.executeQuery();	// 쿼리조작
+			while(rs.next()) {	// sql문의 결과값이 있으면 값이 없을 때 까지
 				currentPcDTO dto = new currentPcDTO(rs.getInt(1), rs.getBoolean(2));
-				list.add(dto);
+				// dto에 정보 저장
+				list.add(dto); //ArrayList에 dto를 저장
 			}
-			return list;
+			return list; // list를 반환
 		} catch (Exception e) {
 			System.out.println("좌석출력 DB 오류" + e);
 		}
@@ -37,7 +39,7 @@ public class PcRoomUserDAO extends PcRoomDAO{
 	}
 	// 로그인 [안태섭]완료
 	public int login (membersDTO dto) {
-		String sql ="SELECT * FROM members WHERE memID = '?' AND memPW = ?";
+		String sql ="SELECT * FROM members WHERE memID = ? AND memPW = ?";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString( 1 , dto.getMemID() ); // 첫 번째 ? 에 memID 대입

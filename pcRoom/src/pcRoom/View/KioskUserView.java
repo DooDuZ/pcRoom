@@ -20,33 +20,32 @@ public class KioskUserView {
 		KioskUserView view = new KioskUserView();
 		Scanner scanner = new Scanner(System.in);
 		
-		// 좌석출력 메서드 시작
+		// 좌석출력 스레드 시작
 		Printseat print = new Printseat();
 		Thread thread = new Thread(print);
 		thread.start();
 
 		while (true) {
 			int memNo; // 로그인 시 로그인 대상 정보 저장
-			// 0 입력시 관리자모드 / 출력은 안할 예정
 			int start = scanner.nextInt();
-			if (start == 1) {
+			if (start == 1) {	/// start == 1 로그인 버튼
 				if(print.isState()) {
-					print.setState(false);
+					print.setState(false);	// 좌석 출력 스레드 일시정지
 				}
 				System.out.print("아이디 : ");
 				String memID = scanner.next();
 				System.out.print("비밀번호 : ");
 				String memPW = scanner.next();
-				memNo = view.login(memID, memPW);
-				if (memNo > 0) {
+				memNo = view.login(memID, memPW);	//로그인 메소드 실행
+				if (memNo > 0) {	// 로그인 성공 -> 회원 번호가 0보다 크다
 					System.out.println("======요금제 선택=======");
-					view.chargeView();
+					view.chargeView();	// 요금제 출력 메소드 실행
 					System.out.println("요금제를 선택해 주세요.");
 					int ch = scanner.nextInt();
 					System.out.println("금액을 투입해 주세요.");
 					int payment = scanner.nextInt();
-					view.charge(memNo, ch, payment);
-					print.setState(true);
+					view.charge(memNo, ch, payment);	//결제 메소드 실행
+					print.setState(true);	// 좌석 출력 재시작
 				} else {
 					print.setState(true);
 					continue;
@@ -81,28 +80,15 @@ public class KioskUserView {
 						} // while E
 					} // if ch1 E
 					if (ch == 2) {
-						view.memberList();
 						System.out.println("검색할 회원 아이디를 입력해주세요.");
-						System.out.println("0.돌아가기 1.회원 상세정보 2.회원삭제");
+						System.out.println("0. 돌아가기");
 						String search = scanner.next();
-						if(search.equals("0")) {
-							continue;
-						} // parseInt 시 돌아가기만 작동하고 검색 기능에서 오류 / equals로 수정
-						else if(search.equals("1")) {
-							System.out.println("회원번호 입력 : ");
-							String memNo2 = scanner.next();
-							view.memberSearch(memNo2);
-						}
-						else if(search.equals("2")) {
-							System.out.println("회원번호 입력 : ");
-							int memNo2 = scanner.nextInt();
-							view.deleteMember(memNo2);
-						}
-						
-						
+						if(search.equals("0")) {continue;} // parseInt 시 돌아가기만 작동하고 검색 기능에서 오류 / equals로 수정
+						view.memberSearch(search);
 					}
 					if (ch == 3) {
 						System.out.println("확인할 자리의 번호를 입력해 주세요");
+						System.out.println("전 화면으로 돌아가시려면 0번을 입력해주세요.");
 						int num = scanner.nextInt();
 						if(num==0) {continue;}
 						view.Information(num);
@@ -172,32 +158,14 @@ public class KioskUserView {
 		System.out.println("날짜\t\t매출");
 		System.out.println(date + "\t" + dto.getDayIncome()); // dao 매서드 dto 생성자 간소화로 인한 날짜 dto.getdDate-> date매개변수로 수정
 	}
+
 	// 월별매출
 	void M_dayrecord(String date) {
 		dayrecordDTO dto = conAd.M_daysales(date);
 		System.out.println("월별매출\n");
 		System.out.println(date + " : " + dto.getDayIncome());
 	}
-	//회원리스트출력 
-	void memberList() {
-		ArrayList<membersDTO> list = conAd.memberList();
-		System.out.println("========회원 목록=======");
-		System.out.println("회원번호\t이름\t아이디");
-		for (membersDTO dto : list) {
-			System.out.print(dto.getMemNo() +"\t"+ dto.getMemName()+"\t"+ dto.getMemID() +"\n");
-		}
-		System.out.println("=======================");
-	}
-	// 회원 삭제
-	void deleteMember(int memNo) {
-		boolean result = conAd.deleteMember(memNo);
-		if(result) {
-			System.out.println("회원 삭제 성공");
-		}else {
-			System.out.println("[시스템 오류] 삭제 실패");
-		}
-	}
-	
+
 	// 회원검색
 	void memberSearch(String search) {
 		membersDTO dto = conAd.memberSearch(search);
@@ -205,6 +173,7 @@ public class KioskUserView {
 		System.out.println("회원번호 :" + dto.getMemNo() + "\n" + "회원ID :" + dto.getMemID() + "\n" + "회원비밀번호 :"
 				+ dto.getMemPW() +"\n회원이름 : " + dto.getMemName() + "\n" + "회원전화번호 :" + dto.getMemPhone() + "\n" + "회원잔여시간 :" + dto.getMemTime()/60 +"시간" + dto.getMemTime()%60 + "분" );
 	}
+
 	// 요금제 출력
 	void showPrice() {
 		ArrayList<priceDTO> list = conAd.showPrice();
