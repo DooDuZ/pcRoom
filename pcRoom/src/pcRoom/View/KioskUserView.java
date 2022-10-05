@@ -44,9 +44,10 @@ public class KioskUserView {
 					int ch = scanner.nextInt();
 					System.out.println("금액을 투입해 주세요.");
 					int payment = scanner.nextInt();
-					
-					if(view.charge(memNo, ch, payment)>=0) {//결제 메소드 실행
-						System.out.println("거스름돈 : " + view.charge(memNo, ch, payment));
+					int billing = view.charge(memNo, ch, payment);
+					if(billing>=0) {//결제 메소드 실행
+						System.out.println("충전완료");
+						System.out.println("거스름돈 : " + billing);
 					}else {
 						System.out.println("[충전 실패] 금액이 부족합니다.");
 					}
