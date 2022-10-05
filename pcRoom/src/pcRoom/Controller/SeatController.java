@@ -18,7 +18,7 @@ public class SeatController {
 	
 	//ID 유효성검사
 	public boolean checkID(String ID) {
-		String regular = "^[A-Za-z[0-9]]{6,15}$";
+		String regular = "^[A-Za-z[0-9]]{8,16}$"; // 8~16글자로 길이 수정 
 		boolean regex = Pattern.matches(regular, ID);
 		if(!regex) {
 			return false;
