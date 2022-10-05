@@ -26,8 +26,8 @@ public class SeatView {
 	membersDTO dto;
 	
 	public static void main(String[] args) {	// 실행
-		SeatView sv02 = new SeatView(2);
-		sv02.startView(sv02.SeatNo);
+		SeatView sv07 = new SeatView(7);
+		sv07.startView(sv07.SeatNo);
 	}
 	
 	// 전체 실행 매서드
@@ -160,7 +160,6 @@ public class SeatView {
 		return sCon.checkID(ID);
 	}
 	public boolean checkPW(String PW) {
-		System.out.println(PW);
 		return sCon.checkPW(PW);
 	}
 	
