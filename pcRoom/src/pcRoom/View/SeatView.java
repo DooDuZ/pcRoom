@@ -26,8 +26,8 @@ public class SeatView {
 	membersDTO dto;
 	
 	public static void main(String[] args) {	// 실행
-		SeatView sv07 = new SeatView(7);
-		sv07.startView(sv07.SeatNo);
+		SeatView sv15 = new SeatView(15);
+		sv15.startView(sv15.SeatNo);
 	}
 	
 	// 전체 실행 매서드
