@@ -17,12 +17,12 @@ public class Printseat implements Runnable{
 			if(state) {
 				for(int i = 0 ; i<5 ; i++) {
 					System.out.println("");
-				}
+				} // 공백
 				System.out.println("1. 요금 충전\n");
 				ArrayList<currentPcDTO> list = new ArrayList<>();
 				list = con.printSeat();
 				int count=0;
-				for( currentPcDTO tmp : list) {
+				for( currentPcDTO tmp : list) { 
 					count++;
 					if(tmp.iscPlay()) {System.out.print("[X]");}
 					else {System.out.print("[ ]");}
