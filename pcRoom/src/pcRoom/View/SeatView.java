@@ -25,11 +25,6 @@ public class SeatView {
 	SeatController sCon = new SeatController();	//seatController 객체
 	membersDTO dto;
 	
-	public static void main(String[] args) {	// 실행
-		SeatView sv15 = new SeatView(15);
-		sv15.startView(sv15.SeatNo);
-	}
-	
 	// 전체 실행 매서드
 	
 	void startView(int SeatNo) {

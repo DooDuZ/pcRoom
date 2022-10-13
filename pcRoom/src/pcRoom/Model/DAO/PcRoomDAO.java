@@ -16,9 +16,9 @@ public class PcRoomDAO {
 	protected PcRoomDAO() {
 		try {
 			con = DriverManager.getConnection(
-					"jdbc:mysql://database-1.clvg5ngvgewk.ap-northeast-2.rds.amazonaws.com:3306/pcroom",
-					"Project_PCROOM", 
-					"April123!");
+					"jdbc:mysql://localhost:3306/pcroom",
+					"root", 
+					"1234");
 		} catch (Exception e) {
 			System.out.println("DB연동 실패"+e);
 		}

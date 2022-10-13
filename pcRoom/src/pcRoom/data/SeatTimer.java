@@ -5,11 +5,11 @@ import pcRoom.View.SeatView;
 
 public class SeatTimer implements Runnable{
 	
-	private int memNo;
-	private String memID;
-	private int memTime;
-	private SeatView sv;
-	private int SeatNo;
+	private int memNo;				// 회원정보 저장 후 해당 값을 통해 DB접근
+	private String memID;			// ID출력용으로 저장해두려 했으나 사용x
+	private int memTime;			// 시간 가져와서 java에서 제어
+	private SeatView sv;			// SeatRun 혹은 SeatView에서 생성된 객체와 같은 객체를 참조해야 하므로 필드 값 생성 후 setter를 통해 제어
+	private int SeatNo;				// SeatView.start 매서드에서 매개변수로 입력받음
 	private boolean logOut = true;
 
 	@Override
